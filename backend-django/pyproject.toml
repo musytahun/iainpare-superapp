@@ -6,9 +6,11 @@ authors = [
     {name = "Ade Musytahun Wahid",email = "ademusytahunwahid@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = "^3.11"
 dependencies = [
-    "django (>=5.2.6,<6.0.0)"
+    "django (>=5.2.6,<6.0.0)",
+    "strawberry-graphql-django (>=0.65.1,<0.66.0)",
+    "django-choices-field (>=3.1.0,<4.0.0)"
 ]
 
 
