@@ -25,11 +25,26 @@ SECRET_KEY = 'django-insecure-&()p^*ubzq!rm&f&$ueczf2t61vr=op+czg@s!vz*nq4_-=ze+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+]
+
+# mengizinkan frontend di domain lain mengakses API.
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+# CORS_ALLOW_ALL_ORIGINS = True  # hanya untuk dev
+# CORS_ALLOW_CREDENTIALS = True
+
+# mengizinkan Django menerima POST/PUT/DELETE dari origin tertentu (penting untuk GraphQL karena query POST)
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+]
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,9 +54,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'strawberry.django',
     'apps.core',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
