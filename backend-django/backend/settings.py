@@ -26,19 +26,16 @@ SECRET_KEY = 'django-insecure-&()p^*ubzq!rm&f&$ueczf2t61vr=op+czg@s!vz*nq4_-=ze+
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
+    "localhost",      # backend bisa diakses via localhost
+    "127.0.0.1",      # backend bisa diakses via 127.0.0.1
 ]
 
-# mengizinkan frontend di domain lain mengakses API.
+# izinkan frontend (Next.js di port 3000) atau domain lain akses ke API Django
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
-# CORS_ALLOW_ALL_ORIGINS = True  # hanya untuk dev
-# CORS_ALLOW_CREDENTIALS = True
-
-# mengizinkan Django menerima POST/PUT/DELETE dari origin tertentu (penting untuk GraphQL karena query POST)
+# izinkan request POST/PUT/DELETE dari frontend tanpa ditolak CSRF
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
 ]
@@ -52,17 +49,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'strawberry.django',
-    'apps.core',
-    'corsheaders',
+    'strawberry.django', # integrasi GraphQL Strawberry
+    'corsheaders',       # untuk atur izin CORS
+    'apps.core',         # contoh aplikasi custom
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # middleware untuk tangani CORS
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware', # default CSRF protection
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',

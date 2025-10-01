@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+.venv*/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Poetry
+poetry.lock
+
+# Django stuff
+*.log
+db.sqlite3
+media/
+staticfiles/
+
+# Coverage / testing
+.coverage
+.tox/
+.nox/
+.cache/
+.pytest_cache/
+
+# MyPy & lint
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/

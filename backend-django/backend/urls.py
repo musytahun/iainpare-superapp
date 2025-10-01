@@ -11,6 +11,9 @@ def home(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('graphql/', GraphQLView.as_view(schema=schema)),
-    path("graphql/", csrf_exempt(GraphQLView.as_view(schema=schema))), # csrf_exempt: dipakai kalau API hanya dipakai oleh frontend kita sendiri, dan otentikasi nanti pakai JWT / session lain.
+    # endpoint GraphQL utama
+    # csrf_exempt: menonaktifkan CSRF check khusus endpoint GraphQL dan hanya dipakai oleh frontend kita sendiri
+    # biasanya dipakai di API murni, nanti keamanan ditambah JWT / token auth
+    path("graphql/", csrf_exempt(GraphQLView.as_view(schema=schema))),
     path('', home),
 ]
