@@ -3,6 +3,7 @@ Base settings untuk semua environment
 Gunakan .env untuk konfigurasi sensitif
 """
 import environ
+import os
 from pathlib import Path
 
 # Root project
@@ -14,10 +15,10 @@ env = environ.Env(
 )
 
 # Baca file .env
-environ.Env.read_env(BASE_DIR / ".env")
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # SECURITY
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = env("SECRET_KEY", default="unsafe-secret-key")
 DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
@@ -77,7 +78,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": env("DB_ENGINE", default="django.db.backends.sqlite3"),
-        "NAME": BASE_DIR / env("DB_NAME", default="db.sqlite3"),
+        "NAME": env("DB_NAME", default="db.sqlite3"),
         "USER": env("DB_USER", default=""),
         "PASSWORD": env("DB_PASSWORD", default=""),
         "HOST": env("DB_HOST", default=""),
