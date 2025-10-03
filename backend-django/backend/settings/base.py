@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     # apps custom
     "apps.core",
+    "apps.accounts",
 ]
 
 MIDDLEWARE = [
@@ -85,6 +86,8 @@ DATABASES = {
         "PORT": env("DB_PORT", default=""),
     }
 }
+
+AUTH_USER_MODEL = "accounts.User"
 
 # Password validators
 AUTH_PASSWORD_VALIDATORS = [
