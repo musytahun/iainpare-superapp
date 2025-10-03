@@ -1,13 +1,17 @@
-import "./globals.css";
-import { ApolloWrapper } from "../lib/apollo-provider";
+"use client";
 
-// RootLayout adalah layout global Next.js (App Router)
-// Semua halaman akan dibungkus oleh ApolloWrapper di sini
+import "./globals.css";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "@/lib/apollo-client";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <ApolloWrapper>{children}</ApolloWrapper>
+        {/* Bungkus dengan ApolloProvider agar useQuery & useMutation bisa dipakai */}
+        <ApolloProvider client={client}>
+          {children}
+        </ApolloProvider>
       </body>
     </html>
   );
