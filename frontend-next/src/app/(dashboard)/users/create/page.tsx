@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { CREATE_USER } from "../../../graphql/mutations";
+import { CREATE_USER } from "@/graphql/users.graphql";
 
 export default function CreateUserPage() {
   const [form, setForm] = useState({

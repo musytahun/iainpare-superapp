@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@apollo/client";
-import { GET_USER_BY_USERNAME } from "../../graphql/queries";
+import { GET_USER_BY_USERNAME } from "../../../graphql/queries";
 
 export default function UsersPage() {
   // Ambil user dengan username "john_doe"

@@ -21,10 +21,14 @@ export default function HomePage() {
 
   // jika sukses, render data dari backend
   return (
-    <div>
+    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <h1>GraphQL Data</h1>
-      <p>Backend Message: {data.backendMessage}</p>
-      <p>Core Message: {data.coreMessage}</p>
+      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+        <p>Backend Message: {data.backendMessage}</p>
+      </main>
+      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+        <p>Core Message: {data.coreMessage}</p>
+      </footer>
     </div>
   );
 }
