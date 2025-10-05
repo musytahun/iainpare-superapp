@@ -24,46 +24,48 @@ superapps/
 │   ├── schema/                     # Strawberry schemas per app
 │   └── manage.py
 │
-│── frontend-next/                   # Next.js
-│   ├── app/                        # Next.js App Router
-│   │   ├── (auth)/                 # Public auth pages
-│   │   │   ├── login/              # /login
-│   │   │   └── register/           # /register
+│── frontend-next/                  # Next.js
+│   ├── src/                        
+│   │   ├── app/                        # Next.js App Router
+│   │   │   ├── (auth)/                 # Public auth pages
+│   │   │   │   ├── login/              # /login
+│   │   │   │   └── register/           # /register
+│   │   │   │
+│   │   │   ├── (dashboard)/            # Protected routes
+│   │   │   │   ├── dashboard/          # /dashboard
+│   │   │   │   └── users/              # /users
+│   │   |   |        ├── page.tsx           # list all users (READ)
+│   │   |   |        ├── create/
+│   │   |   |        │   └── page.tsx       # create new user (CREATE)
+│   │   |   |        ├── [id]/
+│   │   |   |        │   ├── page.tsx       # detail user by id (READ detail)
+│   │   |   |        │   └── edit/
+│   │   |   |        │       └── page.tsx   # edit user (UPDATE)
+│   │   |   |        └── layout.tsx         # layout khusus untuk modul users (optional)
+│   │   │   │
+│   │   │   └── layout.tsx              # Root layout
 │   │   │
-│   │   ├── (dashboard)/            # Protected routes
-│   │   │   ├── dashboard/          # /dashboard
-│   │   │   └── users/              # /users
-│   |   |        ├── page.tsx           # list all users (READ)
-│   |   |        ├── create/
-│   |   |        │   └── page.tsx       # create new user (CREATE)
-│   |   |        ├── [id]/
-│   |   |        │   ├── page.tsx       # detail user by id (READ detail)
-│   |   |        │   └── edit/
-│   |   |        │       └── page.tsx   # edit user (UPDATE)
-│   |   |        └── layout.tsx         # layout khusus untuk modul users (optional)
-│   │   │
-│   │   └── layout.tsx              # Root layout
+│   │   ├── components/                 # Shared UI components
+│   |   |    ├── ErrorMessage.tsx  
+│   |   |    ├── LoadingSpinner.tsx     
+│   |   |    ├── QueryHandler.tsx
+│   |   |    └── skeletons/    
+│   |   |        └── TableSkeleton.tsx  # Skeleton Loader (otomatis muncul saat loading)  
+│   |   |
+│   │   ├── graphql/                    # Apollo queries, mutations, fragments
+│   |   |    ├── auth.graphql.ts  
+│   |   |    ├── users.graphql.ts       # Isinya query/mutation per domain
+│   |   |    └── fragments/
+│   │   │        ├── auth.fragment.ts   # potongan reusable field selection      
+│   |   |        └── user.fragment.ts   
+│   |   |
+│   │   ├── lib/                        # Utilities, helpers (auth, fetcher, etc.)
+│   |   |    ├── auth.ts                # Menyimpan & membaca token login dari localStorage (di client) atau cookies (di server)
+│   |   |    └── apollo-client.ts 
+│   |   |
+│   │   ├── hooks/                      # Custom React hooks (useAuth, useUser, etc.)
+│   │   ├── middleware.ts               # Proteksi semua route dalam (dashboard) agar tidak bisa diakses tanpa login
+│   │   └── styles/                     # Global styles
 │   │
-│   ├── components/                 # Shared UI components
-|   |    ├── ErrorMessage.tsx  
-|   |    ├── LoadingSpinner.tsx     
-|   |    ├── QueryHandler.tsx
-|   |    └── skeletons/    
-|   |        └── TableSkeleton.tsx  # Skeleton Loader (otomatis muncul saat loading)  
-|   |
-│   ├── graphql/                    # Apollo queries, mutations, fragments
-|   |    ├── auth.graphql.ts  
-|   |    ├── users.graphql.ts       # Isinya query/mutation per domain
-|   |    └── fragments/
-│   │        ├── auth.fragment.ts   # potongan reusable field selection      
-|   |        └── user.fragment.ts   
-|   |
-│   ├── lib/                        # Utilities, helpers (auth, fetcher, etc.)
-|   |    └── apollo-client.ts 
-|   |
-│   ├── hooks/                      # Custom React hooks (useAuth, useUser, etc.)
-│   ├── middleware.ts               # Next.js auth middleware
-│   └── styles/                     # Global styles
-│
-│── infrastructure/                 # Docker, CI/CD, configs
-└── README.md
+│   │── infrastructure/                 # Docker, CI/CD, configs
+│   └── README.md
