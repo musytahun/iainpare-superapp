@@ -66,3 +66,12 @@ myapp/
 │── types.py        # schema GraphQL type
 │── schema.py       # query & mutation GraphQL
 │── admin.py        # registrasi admin. defaultnya file sudah ada
+
+
+| Layer              | Tanggung Jawab                                                                    |
+| ------------------ | --------------------------------------------------------------------------------- |
+| **schema.py**      | Deklarasi GraphQL (Query/Mutation) dan pemetaan resolver ke service atau selector |
+| **selectors.py**   | Operasi `read-only` ke database (tanpa modifikasi data)                           |
+| **services.py**    | Operasi `write` atau proses bisnis (buat, ubah, hapus, login, otorisasi, dll)     |
+| **models.py**      | Struktur tabel dan relasi ORM                                                     |
+| **permissions.py** | Validasi otorisasi pengguna berdasarkan role/permission                           |

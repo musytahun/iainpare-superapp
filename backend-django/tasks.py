@@ -32,7 +32,7 @@ def startapp(c, app):
 
 @task
 def makemigrations(c, app=""):
-    # poetry run invoke makemigrate
+    # poetry run invoke makemigrations -- app
     cmd = f"poetry run python manage.py makemigrations {app} --settings={DJANGO_SETTINGS}"
     c.run(cmd, pty=PTY_SUPPORTED)
 
@@ -50,3 +50,10 @@ def shell(c):
 def createsuperuser(c):
     # poetry run invoke createsuperuser
     c.run(f"poetry run python manage.py createsuperuser --settings={DJANGO_SETTINGS}", pty=PTY_SUPPORTED)
+
+@task
+def loaddata(c, fixture_path):
+    # poetry run invoke loaddata apps/accounts/fixtures/initial_roles.json
+    c.run(f"poetry run python manage.py loaddata {fixture_path} --settings={DJANGO_SETTINGS}", pty=PTY_SUPPORTED)
+
+

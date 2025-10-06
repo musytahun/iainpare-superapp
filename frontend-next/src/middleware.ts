@@ -8,12 +8,7 @@ export function middleware(req: NextRequest) {
     req.nextUrl.pathname.startsWith("/register");
 
   // Jika belum login dan bukan halaman auth → redirect ke /login
-  if (
-    !token && 
-    !isAuthPage && 
-    (req.nextUrl.pathname.startsWith("/dashboard") 
-    || req.nextUrl.pathname.startsWith("/users"))
-  ) {
+  if (!token && !isAuthPage) {
     const loginUrl = new URL("/login", req.url);
     return NextResponse.redirect(loginUrl);
   }

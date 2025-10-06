@@ -1,0 +1,59 @@
+[
+    {
+      "model": "accounts.permission",
+      "pk": 1,
+      "fields": {
+        "code": "user.view",
+        "name": "Melihat data user"
+      }
+    },
+    {
+      "model": "accounts.permission",
+      "pk": 2,
+      "fields": {
+        "code": "user.create",
+        "name": "Menambah data user"
+      }
+    },
+    {
+      "model": "accounts.permission",
+      "pk": 3,
+      "fields": {
+        "code": "user.update",
+        "name": "Mengubah data user"
+      }
+    },
+    {
+      "model": "accounts.permission",
+      "pk": 4,
+      "fields": {
+        "code": "user.delete",
+        "name": "Menghapus data user"
+      }
+    },
+    {
+      "model": "accounts.role",
+      "pk": 1,
+      "fields": {
+        "name": "admin",
+        "permissions": [1, 2, 3, 4]
+      }
+    },
+    {
+      "model": "accounts.role",
+      "pk": 2,
+      "fields": {
+        "name": "staff",
+        "permissions": [1, 2, 3]
+      }
+    },
+    {
+      "model": "accounts.role",
+      "pk": 3,
+      "fields": {
+        "name": "user",
+        "permissions": [1, 3]
+      }
+    }
+  ]
+  

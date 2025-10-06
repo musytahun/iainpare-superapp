@@ -2,10 +2,10 @@
 import strawberry
 from backend.schema import Query as BackendQuery # dummy
 from apps.core.schema import Query as CoreQuery # dummy
-from apps.accounts.schema import AccountQuery
+from apps.accounts.schema import AccountQuery, RolePermissionQuery
 
 
 @strawberry.type
-class Query(BackendQuery, CoreQuery, AccountQuery):
+class Query(BackendQuery, CoreQuery, AccountQuery, RolePermissionQuery):
     """Root Query yang menggabungkan semua query dari tiap app"""
     pass
