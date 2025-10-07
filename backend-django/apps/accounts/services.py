@@ -32,12 +32,13 @@ def authenticate_user(username: str, password: str):
 
 
 # ==== USERS ====
-def create_user(*, username: str, password: str, email: str = "", full_name: str = "") -> User:
+def create_user(*, username: str, password: str, email: str = "", full_name: str = "", role_id: int) -> User:
     return User.objects.create_user(
         username=username,
         password=password,
         email=email,
         full_name=full_name,
+        role_id=role_id
     )
 
 def update_user(
@@ -46,7 +47,8 @@ def update_user(
     username: Optional[str] = None,
     password: Optional[str] = None,
     email: Optional[str] = None,
-    full_name: Optional[str] = None
+    full_name: Optional[str] = None,
+    role_id: Optional[int] = None
 ) -> User:
     user = User.objects.filter(id=id).first()
     if not user:
@@ -61,6 +63,13 @@ def update_user(
     if password:
         user.set_password(password)
 
+    if role_id is not None:
+        try:
+            role = Role.objects.get(id=role_id)
+            user.role = role
+        except Role.DoesNotExist:
+            raise Exception("Role not found")
+
     user.save()
     return user
 
@@ -72,10 +81,23 @@ def delete_user(*, id: int) -> bool:
     user.delete()
     return True
 
-# ==== ROLE & PERMISSION ====
-def create_permission(*, name: str, code: str) -> Permission:
-    return Permission.objects.create(name=name, code=code)
+def update_user_role(*, id: int, role_id: int) -> User:
+    """
+    Update role user berdasarkan ID user dan ID role
+    """
+    try:
+        user = User.objects.get(id=id)
+        role = Role.objects.get(id=role_id)
+        user.role = role
+        user.save()
+        return user
+    except User.DoesNotExist:
+        raise Exception("User tidak ditemukan")
+    except Role.DoesNotExist:
+        raise Exception("Role tidak ditemukan")
 
+
+# ==== ROLE & PERMISSION ====
 def create_role(*, name: str, permission_ids: Optional[List[int]] = None) -> Role:
     with transaction.atomic():
         role = Role.objects.create(name=name)
@@ -96,6 +118,19 @@ def update_role(*, id: int, name: Optional[str] = None, permission_ids: Optional
 def delete_role(*, id: int) -> bool:
     Role.objects.filter(id=id).delete()
     return True
+
+def create_permission(*, name: str, code: str) -> Permission:
+    return Permission.objects.create(name=name, code=code)
+
+def update_permission(*, id: int, name: Optional[str] = None, code: Optional[str] = None) -> Permission:
+    with transaction.atomic():
+        permission = Permission.objects.get(id=id)
+        if name:
+            permission.name = name
+        if code:
+            permission.code = code
+        permission.save()
+        return permission
 
 def delete_permission(*, id: int) -> bool:
     Permission.objects.filter(id=id).delete()

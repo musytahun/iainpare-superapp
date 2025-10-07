@@ -22,7 +22,6 @@ class AuthMutation:
 
 @strawberry.type
 class AccountQuery:
-    # Ambil semua user
     # users: List[UserType] = strawberry.field(resolver=get_users)
     @strawberry.field
     def users(self, info: Info) -> List[UserType]:
@@ -30,6 +29,10 @@ class AccountQuery:
         return get_users()
     
     user_by_id: Optional[UserType] = strawberry.field(resolver=get_user_by_id)
+    # def user_by_id(self, info: Info, id: int) -> Optional[UserType]:
+    #     require_role(info, ["admin", "staff"])
+    #     return get_user_by_id(id=id)
+
     user_by_username: Optional[UserType] = strawberry.field(resolver=get_user_by_username)
 
 
@@ -39,6 +42,10 @@ class AccountMutation:
     create_user: UserType = strawberry.mutation(resolver=create_user)
     update_user: UserType = strawberry.mutation(resolver=update_user)
     delete_user: bool = strawberry.mutation(resolver=delete_user)
+    
+    @strawberry.mutation
+    def update_user_role(self, id: int, role_id: int) -> UserType:
+        return update_user_role(id=id, role_id=role_id)
 
 
 # ==== ROLE & PERMISSION ====
@@ -53,8 +60,9 @@ class RolePermissionQuery:
 
 @strawberry.type
 class RolePermissionMutation:
-    create_permission: PermissionType = strawberry.mutation(resolver=create_permission)
     create_role: RoleType = strawberry.mutation(resolver=create_role)
     update_role: RoleType = strawberry.mutation(resolver=update_role)
     delete_role: bool = strawberry.mutation(resolver=delete_role)
+    create_permission: PermissionType = strawberry.mutation(resolver=create_permission)
+    update_permission: PermissionType = strawberry.mutation(resolver=update_permission)
     delete_permission: bool = strawberry.mutation(resolver=delete_permission)

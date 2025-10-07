@@ -1,33 +1,33 @@
 import { gql } from "@apollo/client";
-import { USER_FIELDS } from "@/graphql/fragments/user.fragment";
+import { USER_FRAGMENT } from "@/graphql/fragments/user.fragment";
 
 // ----- QUERIES -----
 // get all user
 export const USERS = gql`
-  ${USER_FIELDS}
+  ${USER_FRAGMENT}
   query GetUsers {
     users {
-      ...UserFields
+      ...UserFragment
     }
   }
 `;
 
 // Query ambil user by username
 export const GET_USER_BY_ID = gql`
-  ${USER_FIELDS}
+  ${USER_FRAGMENT}
   query GetUserById($id: Int!) {
     userById(id: $id) {
-      ...UserFields
+      ...UserFragment
     }
   }
 `;
 
 // Query ambil user by username
 export const GET_USER_BY_USERNAME = gql`
-  ${USER_FIELDS}
+  ${USER_FRAGMENT}
   query GetUserByUsername($username: String!) {
     userByUsername(username: $username) {
-      ...UserFields
+      ...UserFragment
     }
   }
 `;
@@ -36,20 +36,20 @@ export const GET_USER_BY_USERNAME = gql`
 // ----- MUTATIONS -----
 // Mutation untuk create user
 export const CREATE_USER = gql`
-  ${USER_FIELDS}
-  mutation CreateUser($username: String!, $password: String!, $email: String!, $fullName: String) {
-    createUser(username: $username, password: $password, email: $email, fullName: $fullName) {
-      ...UserFields
+  ${USER_FRAGMENT}
+  mutation CreateUser($username: String!, $password: String!, $email: String!, $fullName: String, $roleId: Int!) {
+    createUser(username: $username, password: $password, email: $email, fullName: $fullName, roleId: $roleId) {
+      ...UserFragment
     }
   }
 `;
 
 // Mutation untuk update user
 export const UPDATE_USER = gql`
-  ${USER_FIELDS}
+  ${USER_FRAGMENT}
   mutation UpdateUser($id: Int!, $username: String!, $email: String!, $fullName: String!) {
     updateUser(id: $id, username: $username, email: $email, fullName: $fullName) {
-      ...UserFields
+      ...UserFragment
     }
   }
 `;
@@ -59,4 +59,13 @@ export const DELETE_USER = gql`
   mutation DeleteUser($id: Int!) {
     deleteUser(id: $id)
   }
+`;
+
+export const UPDATE_USER_ROLE = gql`
+  mutation UpdateUserRole($id: Int!, $roleId: Int!) {
+    updateUserRole(id: $id, roleId: $roleId) {
+      ...UserFragment
+    }
+  }
+  ${USER_FRAGMENT}
 `;
