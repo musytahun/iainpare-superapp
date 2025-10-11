@@ -8,7 +8,7 @@ export const USER_FRAGMENT = gql`
     username
     email
     fullName
-    role{
+    roles{
       id
       name
     }

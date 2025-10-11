@@ -15,7 +15,7 @@ export default function UserForm({ user }: { user?: any }) {
     email: user?.email || "",
     fullName: user?.fullName || "",
     password: "",
-    roleId: user?.role?.id || "",
+    roleIds: user?.roles?.map((r: any) => String(r.id)) || [],
   });
 
   const [createUser] = useMutation(CREATE_USER, {
@@ -28,6 +28,15 @@ export default function UserForm({ user }: { user?: any }) {
     onCompleted: () => router.push("/users"),
   });
 
+  const handleCheckboxChange = (roleId: string) => {
+    setForm((prev) => {
+      const selected = prev.roleIds.includes(roleId)
+        ? prev.roleIds.filter((id) => id !== roleId)
+        : [...prev.roleIds, roleId];
+      return { ...prev, roleIds: selected };
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -39,7 +48,7 @@ export default function UserForm({ user }: { user?: any }) {
             username: form.username,
             email: form.email,
             fullName: form.fullName,
-            roleId: Number(form.roleId) || null,
+            roleIds: form.roleIds.map(Number), // ✅
           },
         });
         alert("✅ User berhasil diperbarui");
@@ -50,7 +59,7 @@ export default function UserForm({ user }: { user?: any }) {
             email: form.email,
             fullName: form.fullName,
             password: form.password,
-            roleId: Number(form.roleId) || null,
+            roleIds: form.roleIds.map(Number), // ✅ array of int
           },
         });
         alert("✅ User berhasil ditambahkan");
@@ -111,20 +120,18 @@ export default function UserForm({ user }: { user?: any }) {
 
       <div>
         <label className="block font-semibold">Role</label>
-        <select
-          value={form.roleId}
-          onChange={(e) => setForm({ ...form, roleId: e.target.value })}
-          className="border rounded px-3 py-2 w-full"
-          
-        >
-          <option value="">Pilih Role</option>
+        <div className="flex flex-col gap-1">
           {rolesData?.roles?.map((role: any) => (
-            <option key={role.id} value={role.id}>
-              {role.name}
-            </option>
+            <label key={role.id} className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                checked={form.roleIds.includes(String(role.id))}
+                onChange={() => handleCheckboxChange(String(role.id))}
+              />
+              <span>{role.name}</span>
+            </label>
           ))}
-          
-        </select>
+        </div>
       </div>
 
       <button

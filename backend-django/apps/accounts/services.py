@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate
 from django.db import transaction
 from .models import User, Role, Permission
-from .types import AuthPayload
+from .types import AuthPayload, UserType
 
 
 # ==== AUTH ====
@@ -15,13 +15,15 @@ def authenticate_user(username: str, password: str):
             raise Exception("Username atau password salah")
 
         permissions = []
-        if user.role:
-            permissions = list(user.role.permissions.values_list("code", flat=True))
+        if user.roles.exists():
+            permissions = list(
+                Permission.objects.filter(roles__in=user.roles.all()).values_list("code", flat=True)
+            )
 
         payload = {
             "user_id": user.id,
             "username": user.username,
-            "role": user.role.name if user.role else None,
+            "roles": list(user.roles.values_list("name", flat=True)) if user.roles.exists() else [],
             "permissions": permissions,  # kirim semua permission user
             "exp": datetime.utcnow() + timedelta(hours=1), # exp = waktu kadaluarsa token (di sini: 1 jam)
             "iat": datetime.utcnow(),
@@ -32,14 +34,16 @@ def authenticate_user(username: str, password: str):
 
 
 # ==== USERS ====
-def create_user(*, username: str, password: str, email: str = "", full_name: str = "", role_id: int) -> User:
-    return User.objects.create_user(
+def create_user(*, username: str, password: str, email: str = "", full_name: str = "", role_ids: Optional[List[int]] = None) -> User:
+    user = User.objects.create_user(
         username=username,
         password=password,
         email=email,
-        full_name=full_name,
-        role_id=role_id
+        full_name=full_name
     )
+    if role_ids:
+        user.roles.set(Role.objects.filter(id__in=role_ids))
+    return user
 
 def update_user(
     *,
@@ -48,9 +52,9 @@ def update_user(
     password: Optional[str] = None,
     email: Optional[str] = None,
     full_name: Optional[str] = None,
-    role_id: Optional[int] = None
-) -> User:
-    user = User.objects.filter(id=id).first()
+    role_ids: Optional[list[int]] = None,  # ✅ ubah ini
+) -> UserType:
+    user = User.objects.get(pk=id)
     if not user:
         raise Exception("User not found")
 
@@ -62,15 +66,11 @@ def update_user(
         user.full_name = full_name
     if password:
         user.set_password(password)
-
-    if role_id is not None:
-        try:
-            role = Role.objects.get(id=role_id)
-            user.role = role
-        except Role.DoesNotExist:
-            raise Exception("Role not found")
-
     user.save()
+
+    if role_ids is not None:
+        user.roles.set(Role.objects.filter(id__in=role_ids))  # ✅ set role banyak
+
     return user
 
 def delete_user(*, id: int) -> bool:
@@ -88,7 +88,8 @@ def update_user_role(*, id: int, role_id: int) -> User:
     try:
         user = User.objects.get(id=id)
         role = Role.objects.get(id=role_id)
-        user.role = role
+        user.roles.set([role])  # kalau mau ganti semua role jadi satu ini
+        # user.roles.add(role)   # kalau mau menambahkan tanpa menghapus role lama
         user.save()
         return user
     except User.DoesNotExist:

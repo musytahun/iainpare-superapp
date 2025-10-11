@@ -37,8 +37,8 @@ export const GET_USER_BY_USERNAME = gql`
 // Mutation untuk create user
 export const CREATE_USER = gql`
   ${USER_FRAGMENT}
-  mutation CreateUser($username: String!, $password: String!, $email: String!, $fullName: String, $roleId: Int!) {
-    createUser(username: $username, password: $password, email: $email, fullName: $fullName, roleId: $roleId) {
+  mutation CreateUser($username: String!, $password: String!, $email: String!, $fullName: String, $roleIds: [Int!]) {
+    createUser(username: $username, password: $password, email: $email, fullName: $fullName, roleIds: $roleIds) {
       ...UserFragment
     }
   }
@@ -47,8 +47,8 @@ export const CREATE_USER = gql`
 // Mutation untuk update user
 export const UPDATE_USER = gql`
   ${USER_FRAGMENT}
-  mutation UpdateUser($id: Int!, $username: String!, $email: String!, $fullName: String!) {
-    updateUser(id: $id, username: $username, email: $email, fullName: $fullName) {
+  mutation UpdateUser($id: Int!, $username: String!, $email: String!, $fullName: String!, $roleIds: [Int!]!) {
+    updateUser(id: $id, username: $username, email: $email, fullName: $fullName, roleIds: $roleIds) {
       ...UserFragment
     }
   }
@@ -62,8 +62,8 @@ export const DELETE_USER = gql`
 `;
 
 export const UPDATE_USER_ROLE = gql`
-  mutation UpdateUserRole($id: Int!, $roleId: Int!) {
-    updateUserRole(id: $id, roleId: $roleId) {
+  mutation UpdateUserRole($id: Int!, $roleIds: [Int!]) {
+    updateUserRole(id: $id, roleIds: $roleIds) {
       ...UserFragment
     }
   }

@@ -26,4 +26,4 @@ class UserType:
     username: auto
     email: auto
     full_name: auto
-    role: RoleType
+    roles: List["RoleType"]

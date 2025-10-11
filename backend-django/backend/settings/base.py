@@ -51,6 +51,7 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware", # default CSRF protection
     "django.middleware.common.CommonMiddleware",
+    "apps.core.middleware.AuthMiddleware",  # ⬅️ middleware untuk tangani autentikasi
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",

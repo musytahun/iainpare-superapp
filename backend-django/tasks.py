@@ -42,6 +42,11 @@ def migrate(c):
     c.run(f"poetry run python manage.py migrate --settings={DJANGO_SETTINGS}", pty=PTY_SUPPORTED)
 
 @task
+def flush(c):
+    # poetry run invoke migrate
+    c.run(f"poetry run python manage.py flush --settings={DJANGO_SETTINGS}", pty=PTY_SUPPORTED)
+
+@task
 def shell(c):
     # poetry run invoke shell
     c.run(f"poetry run python manage.py shell --settings={DJANGO_SETTINGS}", pty=PTY_SUPPORTED)
@@ -50,6 +55,7 @@ def shell(c):
 def createsuperuser(c):
     # poetry run invoke createsuperuser
     c.run(f"poetry run python manage.py createsuperuser --settings={DJANGO_SETTINGS}", pty=PTY_SUPPORTED)
+    # poetry run python manage.py createsuperuser --settings=backend.settings.dev
 
 @task
 def loaddata(c, fixture_path):

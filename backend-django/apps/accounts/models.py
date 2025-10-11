@@ -57,12 +57,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     """
     Model utama User untuk sistem auth.
     Bisa login pakai `username`.
+    Sekarang 1 user bisa punya banyak role.
     """
 
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True, blank=True, null=True)
     full_name = models.CharField(max_length=255, blank=True, null=True)
-    role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True, blank=True, related_name="users")
+    roles = models.ManyToManyField(Role, related_name="users", blank=True)
 
     # Django auth fields
     is_active = models.BooleanField(default=True)
@@ -74,12 +75,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []  # kosongkan agar hanya username wajib
 
     def __str__(self):
-        return f"{self.username} ({self.role.name if self.role else 'no role'})"
+        roles = ", ".join([r.name for r in self.roles.all()]) or "no role"
+        return f"{self.username} ({roles})"
 
-    # 🧠 Fungsi bantu untuk mengecek izin
+    # 🧠 Mengecek izin dari seluruh role user
     def has_permission(self, code: str) -> bool:
         if self.is_superuser:
             return True
-        if not self.role:
-            return False
-        return self.role.permissions.filter(code=code).exists()
+        perms = Permission.objects.filter(roles__users=self, code=code).exists()
+        return perms

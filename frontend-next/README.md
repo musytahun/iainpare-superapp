@@ -27,25 +27,46 @@ superapps/
 │── frontend-next/                  # Next.js
 │   ├── src/                        
 │   │   ├── app/                        # Next.js App Router
+│   │   │   ├── (admin)/                 
+│   │   │   │   ├── permissions/          
+│   │   |   |   |    ├── page.tsx           
+│   │   |   |   |    ├── create/
+│   │   |   |   |    │   └── page.tsx       
+│   │   |   |   |    └── [id]/
+│   │   |   |   |        └── page.tsx       
+│   │   │   │   ├── roles/              
+│   │   |   |   |    ├── page.tsx           
+│   │   |   |   |    ├── create/
+│   │   |   |   |    │   └── page.tsx       
+│   │   |   |   |    └── [id]/
+│   │   |   |   |        └── page.tsx       
+│   │   │   │   └── users/              
+│   │   |   |        ├── page.tsx       
+│   │   |   |        ├── create/
+│   │   |   |        │   └── page.tsx    
+│   │   |   |        └── [id]/
+│   │   |   |            └── page.tsx       
+│   │   |   |        
 │   │   │   ├── (auth)/                 # Public auth pages
-│   │   │   │   ├── login/              # /login
-│   │   │   │   └── register/           # /register
+│   │   │   │   ├── login/              
+│   │   │   │   └── register/           
 │   │   │   │
 │   │   │   ├── (dashboard)/            # Protected routes
-│   │   │   │   ├── dashboard/          # /dashboard
-│   │   │   │   └── users/              # /users
-│   │   |   |        ├── page.tsx           # list all users (READ)
-│   │   |   |        ├── create/
-│   │   |   |        │   └── page.tsx       # create new user (CREATE)
-│   │   |   |        ├── [id]/
-│   │   |   |        │   ├── page.tsx       # detail user by id (READ detail)
-│   │   |   |        │   └── edit/
-│   │   |   |        │       └── page.tsx   # edit user (UPDATE)
-│   │   |   |        └── layout.tsx         # layout khusus untuk modul users (optional)
+│   │   │   │   └── dashboard/          
 │   │   │   │
 │   │   │   └── layout.tsx              # Root layout
 │   │   │
 │   │   ├── components/                 # Shared UI components
+│   |   |    ├── permissions/    
+│   |   |    |   ├── PermissionForm.tsx 
+│   |   |    |   └── PermissionList.tsx   
+│   |   |    ├── roles/    
+│   |   |    |   ├── RoleForm.tsx 
+│   |   |    |   └── RoleList.tsx   
+│   |   |    ├── users/    
+│   |   |    |   ├── UserForm.tsx 
+│   |   |    |   └── UserList.tsx   
+│   |   |    |   
 │   |   |    ├── ErrorMessage.tsx  
 │   |   |    ├── LoadingSpinner.tsx     
 │   |   |    ├── QueryHandler.tsx
@@ -54,7 +75,9 @@ superapps/
 │   |   |
 │   │   ├── graphql/                    # Apollo queries, mutations, fragments
 │   |   |    ├── auth.graphql.ts  
-│   |   |    ├── users.graphql.ts       # Isinya query/mutation per domain
+│   |   |    ├── permissions.graphql.ts 
+│   |   |    ├── roles.graphql.ts       
+│   |   |    ├── users.graphql.ts       
 │   |   |    └── fragments/
 │   │   │        ├── auth.fragment.ts   # potongan reusable field selection      
 │   |   |        └── user.fragment.ts   
@@ -63,9 +86,7 @@ superapps/
 │   |   |    ├── auth.ts                # Menyimpan & membaca token login dari localStorage (di client) atau cookies (di server)
 │   |   |    └── apollo-client.ts 
 │   |   |
-│   │   ├── hooks/                      # Custom React hooks (useAuth, useUser, etc.)
-│   │   ├── middleware.ts               # Proteksi semua route dalam (dashboard) agar tidak bisa diakses tanpa login
-│   │   └── styles/                     # Global styles
+│   │   └── middleware.ts               # Proteksi semua route dalam (dashboard) agar tidak bisa diakses tanpa login
 │   │
 │   │── infrastructure/                 # Docker, CI/CD, configs
 │   └── README.md
