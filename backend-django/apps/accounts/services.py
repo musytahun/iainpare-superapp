@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from typing import List, Optional
 import jwt
+from jwt import ExpiredSignatureError
 from django.conf import settings
 from django.contrib.auth import authenticate
 from django.db import transaction
@@ -9,31 +10,74 @@ from .types import AuthPayload, UserType
 
 
 # ==== AUTH ====
+
+def generate_tokens(user):
+    """Generate access & refresh token"""
+    permissions = []
+    if user.roles.exists():
+        permissions = list(
+            Permission.objects.filter(roles__in=user.roles.all()).values_list("code", flat=True)
+        ) 
+
+    access_payload = {
+        "user_id": user.id,
+        "username": user.username,
+        "roles": list(user.roles.values_list("name", flat=True)) if user.roles.exists() else [],
+        "permissions": permissions, # kirim semua permission user
+        "exp": datetime.utcnow() + timedelta(hours=1), # exp = waktu kadaluarsa token (seconds, minutes=30, hours=12, days=7, weeks=4, months=6, years=1)
+        "iat": datetime.utcnow(),
+        "type": "access",
+    }
+
+    refresh_payload = {
+        "user_id": user.id,
+        "exp": datetime.utcnow() + timedelta(days=1),
+        "iat": datetime.utcnow(),
+        "type": "refresh",
+    }
+
+    access_token = jwt.encode(access_payload, settings.SECRET_KEY, algorithm="HS256") # jwt.encode() = membuat token JWT dengan SECRET_KEY dari Django.
+    refresh_token = jwt.encode(refresh_payload, settings.SECRET_KEY, algorithm="HS256")
+
+    return access_token, refresh_token
+
+
 def authenticate_user(username: str, password: str):
         user = authenticate(username=username, password=password) # authenticate() = fungsi bawaan Django untuk verifikasi username & password.
         if user is None:
             raise Exception("Username atau password salah")
 
-        permissions = []
-        if user.roles.exists():
-            permissions = list(
-                Permission.objects.filter(roles__in=user.roles.all()).values_list("code", flat=True)
-            )
+        access_token, refresh_token = generate_tokens(user)
+        return AuthPayload(access_token=access_token, refresh_token=refresh_token, username=user.username) # AuthPayload = tipe yang dikembalikan ke frontend.
 
-        payload = {
-            "user_id": user.id,
-            "username": user.username,
-            "roles": list(user.roles.values_list("name", flat=True)) if user.roles.exists() else [],
-            "permissions": permissions,  # kirim semua permission user
-            "exp": datetime.utcnow() + timedelta(hours=1), # exp = waktu kadaluarsa token (di sini: 1 jam)
-            "iat": datetime.utcnow(),
-        }
 
-        token = jwt.encode(payload, settings.SECRET_KEY, algorithm="HS256") # jwt.encode() = membuat token JWT dengan SECRET_KEY dari Django.
-        return AuthPayload(token=token, username=user.username) # AuthPayload = tipe yang dikembalikan ke frontend.
+def refresh_access_token(refresh_token: str):
+    try:
+        payload = jwt.decode(refresh_token, settings.SECRET_KEY, algorithms=["HS256"])
+        if payload.get("type") != "refresh":
+            raise Exception("Token tidak valid")
+
+        user_id = payload.get("user_id")
+        from .models import User
+        user = User.objects.get(id=user_id)
+
+        access_token, new_refresh_token = generate_tokens(user)
+        return AuthPayload(
+            access_token=access_token,
+            username=user.username,
+            refresh_token=new_refresh_token
+)
+
+    except jwt.ExpiredSignatureError:
+        raise Exception("Signature has expired")
+    except jwt.InvalidTokenError:
+        raise Exception("Refresh token tidak valid")
+
 
 
 # ==== USERS ====
+
+
 def create_user(*, username: str, password: str, email: str = "", full_name: str = "", role_ids: Optional[List[int]] = None) -> User:
     user = User.objects.create_user(
         username=username,
@@ -81,6 +125,11 @@ def delete_user(*, id: int) -> bool:
     user.delete()
     return True
 
+
+
+# ==== USER ROLE ====
+
+
 def update_user_role(*, id: int, role_id: int) -> User:
     """
     Update role user berdasarkan ID user dan ID role
@@ -98,7 +147,10 @@ def update_user_role(*, id: int, role_id: int) -> User:
         raise Exception("Role tidak ditemukan")
 
 
+
+
 # ==== ROLE & PERMISSION ====
+
 def create_role(*, name: str, permission_ids: Optional[List[int]] = None) -> Role:
     with transaction.atomic():
         role = Role.objects.create(name=name)
@@ -119,6 +171,9 @@ def update_role(*, id: int, name: Optional[str] = None, permission_ids: Optional
 def delete_role(*, id: int) -> bool:
     Role.objects.filter(id=id).delete()
     return True
+
+
+
 
 def create_permission(*, name: str, code: str) -> Permission:
     return Permission.objects.create(name=name, code=code)

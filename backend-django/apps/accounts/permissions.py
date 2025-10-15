@@ -1,6 +1,7 @@
 # apps/accounts/permissions.py
 import functools
 import jwt
+from jwt import ExpiredSignatureError
 from django.conf import settings
 from strawberry.types import Info
 from .models import User, Permission
@@ -18,9 +19,9 @@ def get_user_from_token(info: Info):
     if not auth_header or not auth_header.startswith("Bearer "):
         raise Exception("Token tidak ditemukan")
 
-    token = auth_header.split(" ")[1]
+    access_token = auth_header.split(" ")[1]
     try:
-        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+        payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=["HS256"])
         user_id = payload.get("user_id")
         user = (
             User.objects.prefetch_related("roles__permissions")
@@ -32,7 +33,7 @@ def get_user_from_token(info: Info):
         return user
 
     except jwt.ExpiredSignatureError:
-        raise Exception("Token kedaluwarsa")
+        raise Exception("Signature has expired")
     except jwt.InvalidTokenError:
         raise Exception("Token tidak valid")
 

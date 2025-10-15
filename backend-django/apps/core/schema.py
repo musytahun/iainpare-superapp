@@ -4,4 +4,4 @@ import strawberry
 class Query:
     @strawberry.field
     def core_message(self) -> str:
-        return "hi, this is core's schema. yeah you did it"
+        return "hi, this is core's schema."

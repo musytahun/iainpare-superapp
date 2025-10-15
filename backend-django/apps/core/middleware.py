@@ -17,9 +17,9 @@ class AuthMiddleware(MiddlewareMixin):
             request.user = None
             return
 
-        token = auth_header.split(" ")[1]
+        access_token = auth_header.split(" ")[1]
         try:
-            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+            payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=["HS256"])
             user_id = payload.get("user_id")
             user = User.objects.filter(id=user_id).first()
             request.user = user

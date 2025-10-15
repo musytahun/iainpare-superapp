@@ -4,4 +4,4 @@ import strawberry
 class Query:
     @strawberry.field
     def backend_message(self) -> str:
-        return "hi, this is backend's schema. it's great. awesome"
+        return "hi, this is backend's schema."

@@ -14,8 +14,11 @@ from .permissions import permission_required, role_required, require_permission,
 class AuthMutation:
     @strawberry.mutation
     def login(self, info: Info, username: str, password: str) -> AuthPayload:
-        result = authenticate_user(username, password)
-        return AuthPayload(token=result.token, username=result.username)
+        return authenticate_user(username, password)
+    
+    @strawberry.mutation
+    def refresh_token(self, info: Info, refresh_token: str) -> AuthPayload:
+        return refresh_access_token(refresh_token)
 
 
 # ==== USER ====

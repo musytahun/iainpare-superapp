@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@apollo/client";
 import { LOGIN_MUTATION } from "@/graphql/auth.graphql";
-import { setToken } from "@/lib/auth";
+import { setTokens } from "@/lib/auth";
 import { client } from "@/lib/apollo-client";
+import { startSilentRefresh } from "@/lib/silent-refresh";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -20,14 +21,22 @@ export default function LoginPage() {
     e.preventDefault();
     try {
       const { data } = await login({ variables: form });
-      if (data?.login?.token) {
-        setToken(data.login.token);
-        router.push("/dashboard");
+      console.log("🟢 Data login:", data);
+
+      const access = data?.login?.accessToken;
+      const refresh = data?.login?.refreshToken;
+
+      if (access && refresh) {
+        setTokens(access, refresh);
+        console.log("✅ Login berhasil, token disimpan");
+        startSilentRefresh();
+        router.push("/gate/menu");
       } else {
+        console.warn("⚠️ Login gagal: token tidak diterima");
         alert("Login gagal. Coba periksa username/password.");
       }
     } catch (err) {
-      console.error(err);
+      console.error("❌ Error saat login:", err);
       alert("Terjadi kesalahan saat login");
     }
   };

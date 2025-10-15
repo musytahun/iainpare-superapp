@@ -1,16 +1,25 @@
-"use client"; // directive khusus Next.js App Router agar file ini dieksekusi di client-side
-
-import { ApolloClient, InMemoryCache, HttpLink, createHttpLink } from "@apollo/client";
+"use client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  HttpLink,
+  ApolloLink,
+} from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import Cookies from "js-cookie";
+import { getAccessToken } from "./auth";
 
-
-const httpLink = createHttpLink({
+const httpLink = new HttpLink({
   uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = Cookies.get("access_token");
+  const token = getAccessToken();
+  if (token) {
+    console.log("🔑 ApolloClient: Token disertakan di header");
+  } else {
+    console.warn("⚠️ ApolloClient: Token tidak ditemukan");
+  }
+
   return {
     headers: {
       ...headers,
@@ -19,9 +28,7 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-// Membuat instance Apollo Client yang akan dipakai di seluruh app
 export const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: ApolloLink.from([authLink, httpLink]),
   cache: new InMemoryCache(),
 });
-

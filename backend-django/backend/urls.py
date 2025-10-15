@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 def home(request):
-    return HttpResponse("Welcome to Django backend. GraphQL is at /graphql/")
+    return HttpResponse("Hi, there's nothing here.")
 
 urlpatterns = [
     path('admin/', admin.site.urls),

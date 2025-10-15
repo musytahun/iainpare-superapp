@@ -1,3 +1,6 @@
+Access Token dan Refresh Token ada di `frontend-next/src/lib/auth.ts`
+Access Token Refresh ada di `frontend-next/src/lib/apollo-client.ts`
+
 ## Getting Started
 
 First, run the development server:
@@ -90,3 +93,34 @@ superapps/
 │   │
 │   │── infrastructure/                 # Docker, CI/CD, configs
 │   └── README.md
+
+
+src/
+└── app/
+    ├── ukt/
+    │   ├── public/
+    │   │   ├── layout.tsx
+    │   │   └── page.tsx                  → /ukt (public homepage)
+    │   ├── user/
+    │   │   ├── layout.tsx
+    │   │   └── dashboard/page.tsx        → /ukt/dashboard
+    │   ├── admin/
+    │   │   ├── layout.tsx
+    │   │   ├── mahasiswa/page.tsx        → /ukt/admin/mahasiswa
+    │   │   └── laporan/page.tsx          → /ukt/admin/laporan
+    │   └── layout.tsx                    → layout utama utk app UKT
+    │
+    ├── bkd/
+    │   ├── public/
+    │   │   ├── layout.tsx
+    │   │   └── page.tsx                  → /bkd
+    │   ├── user/
+    │   │   ├── layout.tsx
+    │   │   └── dashboard/page.tsx        → /bkd/dashboard
+    │   ├── admin/
+    │   │   ├── layout.tsx
+    │   │   ├── dosen/page.tsx            → /bkd/admin/dosen
+    │   │   └── evaluasi/page.tsx         → /bkd/admin/evaluasi
+    │   └── layout.tsx                    → layout utama utk app BKD
+    │
+    └── layout.tsx                        → root layout (mis. header/footer umum)

@@ -2,13 +2,16 @@
 
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { stopSilentRefresh } from "@/lib/silent-refresh";
 
 export default function LogoutButton() {
   const router = useRouter();
 
   const handleLogout = () => {
     Cookies.remove("access_token");
-    router.push("/login");
+    Cookies.remove("refresh_token");
+    stopSilentRefresh();
+    router.push("/gate/login");
   };
 
   return (
