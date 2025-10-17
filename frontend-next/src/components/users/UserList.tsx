@@ -29,7 +29,7 @@ export default function UserList() {
           <h1 className="text-xl font-bold">Daftar User</h1>
           <Permission check="user.create">
           <Link
-            href="/users/create"
+            href="/settings/users/create"
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           >
             + Tambah User
@@ -78,7 +78,7 @@ export default function UserList() {
                   {/* Tampilkan Edit jika ada permission user.update */}
                   <Permission check="user.update">
                   <Link
-                    href={`/users/${user.id}`}
+                    href={`/settings/users/${user.id}`}
                     className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
                   >
                     Edit

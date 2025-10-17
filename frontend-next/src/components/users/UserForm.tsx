@@ -20,12 +20,12 @@ export default function UserForm({ user }: { user?: any }) {
 
   const [createUser] = useMutation(CREATE_USER, {
     refetchQueries: [{ query: USERS }],
-    onCompleted: () => router.push("/users"),
+    onCompleted: () => router.push("/settings/users"),
   });
 
   const [updateUser] = useMutation(UPDATE_USER, {
     refetchQueries: [{ query: USERS }],
-    onCompleted: () => router.push("/users"),
+    onCompleted: () => router.push("/settings/users"),
   });
 
   const handleCheckboxChange = (roleId: string) => {

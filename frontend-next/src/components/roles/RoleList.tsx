@@ -22,7 +22,7 @@ export default function RoleList() {
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-xl font-semibold">Roles</h1>
-        <Link href="/roles/create" className="btn btn-primary">
+        <Link href="/settings/roles/create" className="btn btn-primary">
           + Tambah Role
         </Link>
       </div>
@@ -32,6 +32,7 @@ export default function RoleList() {
           <tr className="bg-gray-100">
             <th className="p-2 border">Nama Role</th>
             <th className="p-2 border">Permissions</th>
+            <th className="p-2 border">Module</th>
             <th className="p-2 border">Aksi</th>
           </tr>
         </thead>
@@ -42,8 +43,11 @@ export default function RoleList() {
               <td className="p-2 border">
                 {role.permissions.map((p: any) => p.name).join(", ")}
               </td>
+              <td className="p-2 border">
+                {role.modules.map((p: any) => p.name).join(", ")}
+              </td>
               <td className="p-2 border text-center">
-                <Link href={`/roles/${role.id}`} className="text-blue-600 mr-2">
+                <Link href={`/settings/roles/${role.id}`} className="text-blue-600 mr-2">
                   Edit
                 </Link>
                 <button

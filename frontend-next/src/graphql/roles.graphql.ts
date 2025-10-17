@@ -11,8 +11,8 @@ export const GET_ROLES = gql`
 `;
 
 export const CREATE_ROLE = gql`
-  mutation CreateRole($name: String!, $permissionIds: [Int!]) {
-    createRole(name: $name, permissionIds: $permissionIds) {
+  mutation CreateRole($name: String!, $permissionIds: [Int!], $moduleIds: [Int!]) {
+    createRole(name: $name, permissionIds: $permissionIds, moduleIds: $moduleIds) {
       ...RoleFragment
     }
   }
@@ -20,8 +20,8 @@ export const CREATE_ROLE = gql`
 `;
 
 export const UPDATE_ROLE = gql`
-  mutation UpdateRole($id: Int!, $name: String, $permissionIds: [Int!]) {
-    updateRole(id: $id, name: $name, permissionIds: $permissionIds) {
+  mutation UpdateRole($id: Int!, $name: String, $permissionIds: [Int!], $moduleIds: [Int!]) {
+    updateRole(id: $id, name: $name, permissionIds: $permissionIds, moduleIds: $moduleIds) {
       ...RoleFragment
     }
   }

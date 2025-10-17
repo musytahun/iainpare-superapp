@@ -9,5 +9,12 @@ export const ROLE_FRAGMENT = gql`
       name
       code
     }
+    modules{
+      id
+      name
+      code
+      icon
+      url
+    }
   }
 `;

@@ -1,12 +1,7 @@
 "use client";
-import {
-  ApolloClient,
-  InMemoryCache,
-  HttpLink,
-  ApolloLink,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink, ApolloLink, } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { getAccessToken } from "./auth";
+import { getAccessToken } from "@/lib/auth";
 
 const httpLink = new HttpLink({
   uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
@@ -14,8 +9,11 @@ const httpLink = new HttpLink({
 
 const authLink = setContext((_, { headers }) => {
   const token = getAccessToken();
-  if (token) {
-    console.log("🔑 ApolloClient: Token disertakan di header");
+  const activeModule = localStorage.getItem("activeModule");
+  const activeRole = localStorage.getItem("activeRole");
+
+  if (token && activeModule && activeRole) {
+    console.log("🔑 ApolloClient: Token, activeModule, activeRole disertakan di header");
   } else {
     console.warn("⚠️ ApolloClient: Token tidak ditemukan");
   }
@@ -24,6 +22,8 @@ const authLink = setContext((_, { headers }) => {
     headers: {
       ...headers,
       Authorization: token ? `Bearer ${token}` : "",
+      "X-Active-Module": activeModule || "",
+      "X-Active-Role": activeRole || "",
     },
   };
 });

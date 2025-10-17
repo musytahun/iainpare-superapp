@@ -1,7 +1,7 @@
 import strawberry
-from typing import List
+from typing import List, Optional
 from strawberry import auto
-from .models import User, Role, Permission
+from .models import User, Role, Permission, Module
 
 @strawberry.type
 class AuthPayload:
@@ -20,6 +20,16 @@ class RoleType:
     id: auto
     name: auto
     permissions: List[PermissionType]
+    modules: List["ModuleType"]  # gunakan string agar bisa referensi silang
+
+@strawberry.django.type(Module)
+class ModuleType:
+    id: strawberry.ID
+    name: str
+    code: str
+    icon: Optional[str]
+    url: Optional[str]
+    roles: List[RoleType]  # tambahkan ini agar GraphQL menampilkan roles
 
 @strawberry.django.type(User)
 class UserType:

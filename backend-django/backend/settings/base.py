@@ -5,6 +5,7 @@ Gunakan .env untuk konfigurasi sensitif
 import environ
 import os
 from pathlib import Path
+from corsheaders.defaults import default_headers
 
 # Root project
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -26,6 +27,11 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 # CORS & CSRF
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=[])
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "x-active-module",
+    "X-Active-Role",
+]
 
 # Apps
 INSTALLED_APPS = [
@@ -51,10 +57,10 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware", # default CSRF protection
     "django.middleware.common.CommonMiddleware",
-    "apps.core.middleware.AuthMiddleware",  # ⬅️ middleware untuk tangani autentikasi
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "apps.core.middleware.AuthMiddleware",  # ⬅️ middleware untuk tangani autentikasi. URUTAN SANGAT PENTING
 ]
 
 ROOT_URLCONF = "backend.urls"

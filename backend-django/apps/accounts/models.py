@@ -3,7 +3,7 @@ from django.db import models
 
 
 # =====================================================
-# 🧱 Role & Permission
+# 🧱 Role, Permission, & Module
 # =====================================================
 
 class Permission(models.Model):
@@ -14,12 +14,25 @@ class Permission(models.Model):
         return f"{self.code}"
 
 
+class Module(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    code = models.CharField(max_length=50, unique=True)
+    icon = models.CharField(max_length=50, blank=True)  # opsional
+    url = models.CharField(max_length=100, blank=True)  # misal '/bkd', '/akademik'
+    
+    def __str__(self):
+        return self.name
+
 class Role(models.Model):
     name = models.CharField(max_length=100, unique=True)  # ex: "admin", "staff", "user"
     permissions = models.ManyToManyField(Permission, related_name="roles", blank=True)
+    modules = models.ManyToManyField(Module, related_name="roles", blank=True)
 
     def __str__(self):
         return self.name
+    
+
+
 
 
 # =====================================================
@@ -84,3 +97,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             return True
         perms = Permission.objects.filter(roles__users=self, code=code).exists()
         return perms
+    
+    def get_accessible_modules(self):
+        """Return all modules accessible via the user's roles"""
+        return Module.objects.filter(roles__users=self).distinct()

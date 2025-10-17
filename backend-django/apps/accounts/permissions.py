@@ -48,6 +48,7 @@ def require_permission(info: Info, required_code: str):
     if required_code not in user_permissions:
         raise Exception("Akses ditolak: tidak punya izin")
     return True
+    # CONTOH PENGGUNAAN require_permission(info, "user.view")
 
 
 def require_role(info: Info, allowed_roles: list[str]):
@@ -75,6 +76,7 @@ def permission_required(permission_code: str):
             return resolver_func(*resolver_args, info=info, **resolver_kwargs)
         return wrapper
     return decorator
+    # CONTOH PENGGUNAAN @permission_required("user.view")
 
 
 def role_required(allowed_roles: list[str]):
