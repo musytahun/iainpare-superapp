@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from "@apollo/client";
 import { GET_ROLES } from "@/graphql/roles.graphql";
-import RoleForm from "@/components/roles/RoleForm";
+import RoleForm from "@/components/layout-settings/RoleForm";
 import { useParams } from "next/navigation";
 
 export default function EditRolePage() {

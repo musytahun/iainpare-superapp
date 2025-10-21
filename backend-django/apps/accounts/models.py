@@ -76,6 +76,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True, blank=True, null=True)
     full_name = models.CharField(max_length=255, blank=True, null=True)
+    avatar = models.CharField(max_length=255, blank=True, null=True)
     roles = models.ManyToManyField(Role, related_name="users", blank=True)
 
     # Django auth fields

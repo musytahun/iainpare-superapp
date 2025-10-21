@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import { stopSilentRefresh } from "@/lib/silent-refresh";
+import { stopSilentRefresh } from "@/lib/silent-refresh";import { ArrowRightOnRectangleIcon } from "@/components/icons/Icons";
 
 export default function LogoutButton() {
   const router = useRouter();
@@ -17,9 +17,10 @@ export default function LogoutButton() {
   return (
     <button
       onClick={handleLogout}
-      className="px-3 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+      className="w-full text-left flex items-center space-x-2 px-4 py-2 text-sm text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white"
     >
-      Logout
+      <ArrowRightOnRectangleIcon className="w-5 h-5" />
+      <span>Logout</span>
     </button>
   );
 }

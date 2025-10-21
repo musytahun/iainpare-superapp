@@ -8,6 +8,7 @@ export const USER_FRAGMENT = gql`
     username
     email
     fullName
+    avatar
     roles{
       id
       name

@@ -37,8 +37,8 @@ export const GET_USER_BY_USERNAME = gql`
 // Mutation untuk create user
 export const CREATE_USER = gql`
   ${USER_FRAGMENT}
-  mutation CreateUser($username: String!, $password: String!, $email: String!, $fullName: String, $roleIds: [Int!]) {
-    createUser(username: $username, password: $password, email: $email, fullName: $fullName, roleIds: $roleIds) {
+  mutation CreateUser($username: String!, $password: String!, $email: String!, $fullName: String, $avatar: String!, $roleIds: [Int!]) {
+    createUser(username: $username, password: $password, email: $email, fullName: $fullName, avatar: $avatar, roleIds: $roleIds) {
       ...UserFragment
     }
   }
@@ -47,8 +47,8 @@ export const CREATE_USER = gql`
 // Mutation untuk update user
 export const UPDATE_USER = gql`
   ${USER_FRAGMENT}
-  mutation UpdateUser($id: Int!, $username: String!, $email: String!, $fullName: String!, $roleIds: [Int!]!) {
-    updateUser(id: $id, username: $username, email: $email, fullName: $fullName, roleIds: $roleIds) {
+  mutation UpdateUser($id: Int!, $username: String!, $email: String!, $fullName: String!, $avatar: String!, $roleIds: [Int!]!) {
+    updateUser(id: $id, username: $username, email: $email, fullName: $fullName, avatar: $avatar, roleIds: $roleIds) {
       ...UserFragment
     }
   }

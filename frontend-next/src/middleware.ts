@@ -13,19 +13,31 @@ interface JwtPayload {
 // 🔒 Daftar aturan akses
 const ACCESS_RULES: Record<string, { roles?: string[]; permissions?: string[] }> = {
   "/admin": { roles: ["admin"] },
-  "/users": { permissions: ["user.view"] },
-  "/users/create": { permissions: ["user.create"] },
-  "/users/update": { permissions: ["user.update"] },
-  "/users/delete": { permissions: ["user.delete"] },
-  "/roles": { permissions: ["role.view"] },
-  "/permissions": { permissions: ["permission.view"] },
+  // Settings
+  "/settings": { permissions: ["modul.settings"] },
+  "/settings/users": { permissions: ["user.view"] },
+  "/settings/users/create": { permissions: ["user.create"] },
+  "/settings/users/update": { permissions: ["user.update"] },
+  "/settings/users/delete": { permissions: ["user.delete"] },
+  "/settings/roles": { permissions: ["role.view"] },
+  "/settings/roles/create": { permissions: ["role.create"] },
+  "/settings/roles/update": { permissions: ["role.update"] },
+  "/settings/roles/delete": { permissions: ["role.delete"] },
+  "/settings/permissions": { permissions: ["permission.view"] },
+  "/settings/permissions/create": { permissions: ["permission.create"] },
+  "/settings/permissions/update": { permissions: ["permission.update"] },
+  "/settings/permissions/delete": { permissions: ["permission.delete"] },
+  "/settings/modules": { permissions: ["module.view"] },
+  "/settings/modules/create": { permissions: ["module.create"] },
+  "/settings/modules/update": { permissions: ["module.update"] },
+  "/settings/modules/delete": { permissions: ["module.delete"] },
 };
 
 export function middleware(req: NextRequest) {
   const access_token = req.cookies.get("access_token")?.value;
   const url = req.nextUrl.clone();
   const path = req.nextUrl.pathname;
-  const isAuthPage = path.startsWith("/gate/login") || path.startsWith("/register");
+  const isAuthPage = path.startsWith("/gate/login") || path.startsWith("/gate/register");
 
   // Belum login → redirect ke /login
   if (!access_token && !isAuthPage) {
@@ -83,9 +95,8 @@ export const config = {
   matcher: [
     "/gate/login", 
     "/gate/register",
-    "/gate/menu/:path*", 
-    "/roles/:path*", 
-    "/permissions/:path*",
-    "/users/:path*", 
+    "/gate/menu", 
+    "/settings", 
+    "/settings/:path*", 
   ],
 };

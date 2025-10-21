@@ -30,6 +30,9 @@ def generate_tokens(user):
     access_payload = {
         "user_id": user.id,
         "username": user.username,
+        "email": user.email,
+        "full_name": user.full_name,
+        "avatar": user.avatar,
         "roles": list(user.roles.values_list("name", flat=True)) if user.roles.exists() else [],
         "permissions": permissions, # kirim semua permission user
         "modules": modules,
@@ -58,7 +61,7 @@ def authenticate_user(username: str, password: str):
             raise Exception("Username atau password salah")
 
         access_token, refresh_token = generate_tokens(user)
-        return AuthPayload(access_token=access_token, refresh_token=refresh_token, username=user.username) # AuthPayload = tipe yang dikembalikan ke frontend.
+        return AuthPayload(access_token=access_token, refresh_token=refresh_token, username=user.username, email=user.email, full_name=user.full_name, avatar=user.avatar) # AuthPayload = tipe yang dikembalikan ke frontend.
 
 
 def refresh_access_token(refresh_token: str):
@@ -90,12 +93,13 @@ def refresh_access_token(refresh_token: str):
 # ==== USERS ====
 
 
-def create_user(*, username: str, password: str, email: str = "", full_name: str = "", role_ids: Optional[List[int]] = None) -> User:
+def create_user(*, username: str, password: str, email: str = "", full_name: str = "", avatar: str = "", role_ids: Optional[List[int]] = None) -> User:
     user = User.objects.create_user(
         username=username,
         password=password,
         email=email,
-        full_name=full_name
+        full_name=full_name,
+        avatar=avatar,
     )
     if role_ids:
         user.roles.set(Role.objects.filter(id__in=role_ids))
@@ -108,6 +112,7 @@ def update_user(
     password: Optional[str] = None,
     email: Optional[str] = None,
     full_name: Optional[str] = None,
+    avatar: Optional[str] = None,
     role_ids: Optional[list[int]] = None,  # ✅ ubah ini
 ) -> UserType:
     user = User.objects.get(pk=id)
@@ -120,6 +125,8 @@ def update_user(
         user.email = email
     if full_name:
         user.full_name = full_name
+    if avatar:
+        user.avatar = avatar
     if password:
         user.set_password(password)
     user.save()

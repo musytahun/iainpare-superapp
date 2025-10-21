@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from "@apollo/client";
 import { GET_MODULES } from "@/graphql/modules.graphql";
-import ModuleForm from "@/components/modules/ModuleForm";
+import ModuleForm from "@/components/layout-settings/ModuleForm";
 import { useParams } from "next/navigation";
 
 export default function EditModulePage() {

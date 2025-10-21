@@ -7,6 +7,9 @@ from .models import User, Role, Permission, Module
 class AuthPayload:
     access_token: str
     username: str
+    email: str
+    full_name: str
+    avatar: str
     refresh_token: str
 
 @strawberry.django.type(Permission)
@@ -37,4 +40,5 @@ class UserType:
     username: auto
     email: auto
     full_name: auto
+    avatar: auto
     roles: List["RoleType"]

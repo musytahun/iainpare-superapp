@@ -3,7 +3,7 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "next/navigation";
 import { GET_USER_BY_ID } from "@/graphql/users.graphql";
-import UserForm from "@/components/users/UserForm";
+import UserForm from "@/components/layout-settings/UserForm";
 import QueryHandler from "@/components/QueryHandler";
 import TableSkeleton from "@/components/skeletons/TableSkeleton";
 
@@ -20,7 +20,6 @@ export default function EditUserPage() {
   return (
     <QueryHandler loading={loading} error={error} skeleton={<TableSkeleton rows={6} />}>
       <div className="p-6">
-        <h1 className="text-xl font-bold mb-4">Edit User</h1>
         {data?.userById ? <UserForm user={data.userById} /> : <p>Tidak ada data user</p>}
       </div>
     </QueryHandler>
