@@ -160,6 +160,7 @@ export default function MenuPage() {
     if (selectedModule) {
       localStorage.setItem("activeModule", selectedModule.code);
       localStorage.setItem("activeRole", role.name);
+      
       setSelectedModule(null);
       router.push(`/${selectedModule.code}`);
     }

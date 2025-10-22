@@ -10,6 +10,11 @@ export const MODULE_FRAGMENT = gql`
     roles {
       id
       name
+      permissions {
+        id
+        name
+        code
+      }
     }
   }
 `;
