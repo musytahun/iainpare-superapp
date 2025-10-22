@@ -3,13 +3,24 @@
       "model": "accounts.permission",
       "pk": 1,
       "fields": {
+        "code": "modul.settings",
+        "name": "Akses Settings"
+      }
+    },
+
+
+
+    {
+      "model": "accounts.permission",
+      "pk": 2,
+      "fields": {
         "code": "user.view",
         "name": "Read User"
       }
     },
     {
       "model": "accounts.permission",
-      "pk": 2,
+      "pk": 3,
       "fields": {
         "code": "user.create",
         "name": "Create User"
@@ -17,7 +28,7 @@
     },
     {
       "model": "accounts.permission",
-      "pk": 3,
+      "pk": 4,
       "fields": {
         "code": "user.update",
         "name": "Update User"
@@ -25,27 +36,167 @@
     },
     {
       "model": "accounts.permission",
-      "pk": 4,
+      "pk": 5,
       "fields": {
         "code": "user.delete",
         "name": "Delete User"
       }
     },
+
+
+
+
+    {
+      "model": "accounts.permission",
+      "pk": 6,
+      "fields": {
+        "code": "role.view",
+        "name": "Read role"
+      }
+    },
+    {
+      "model": "accounts.permission",
+      "pk": 7,
+      "fields": {
+        "code": "role.create",
+        "name": "Create role"
+      }
+    },
+    {
+      "model": "accounts.permission",
+      "pk": 8,
+      "fields": {
+        "code": "role.update",
+        "name": "Update role"
+      }
+    },
+    {
+      "model": "accounts.permission",
+      "pk": 9,
+      "fields": {
+        "code": "role.delete",
+        "name": "Delete role"
+      }
+    },
+
+
+
+    {
+      "model": "accounts.permission",
+      "pk": 10,
+      "fields": {
+        "code": "permission.view",
+        "name": "Read permission"
+      }
+    },
+    {
+      "model": "accounts.permission",
+      "pk": 11,
+      "fields": {
+        "code": "permission.create",
+        "name": "Create permission"
+      }
+    },
+    {
+      "model": "accounts.permission",
+      "pk": 12,
+      "fields": {
+        "code": "permission.update",
+        "name": "Update permission"
+      }
+    },
+    {
+      "model": "accounts.permission",
+      "pk": 13,
+      "fields": {
+        "code": "permission.delete",
+        "name": "Delete permission"
+      }
+    },
+
+
+
+    {
+      "model": "accounts.permission",
+      "pk": 14,
+      "fields": {
+        "code": "module.view",
+        "name": "Read module"
+      }
+    },
+    {
+      "model": "accounts.permission",
+      "pk": 15,
+      "fields": {
+        "code": "module.create",
+        "name": "Create module"
+      }
+    },
+    {
+      "model": "accounts.permission",
+      "pk": 16,
+      "fields": {
+        "code": "module.update",
+        "name": "Update module"
+      }
+    },
+    {
+      "model": "accounts.permission",
+      "pk": 17,
+      "fields": {
+        "code": "module.delete",
+        "name": "Delete module"
+      }
+    },
+
+
+
     {
       "model": "accounts.role",
       "pk": 1,
       "fields": {
-        "name": "admin",
-        "permissions": [1, 2, 3, 4]
+        "name": "Super Admin",
+        "permissions": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+        "modules": [1]
       }
     },
     {
       "model": "accounts.role",
       "pk": 2,
       "fields": {
-        "name": "user",
-        "permissions": [1]
+        "name": "User",
+        "permissions": [1, 2]
+      }
+    },
+
+
+
+    {
+      "model": "accounts.module",
+      "pk": 1,
+      "fields": {
+        "name": "Settings",
+        "code": "settings",
+        "icon": "CogIcon",
+        "url": "-"
+      }
+    },
+
+
+
+    {
+      "model": "accounts.user",
+      "pk": 1,
+      "fields": {
+        "username": "admin",
+        "email": "admin@example.com",
+        "full_name": "Your Majesty",
+        "password": "pbkdf2_sha256$1000000$jsroEaDI7WsRjxbEBc1ypA$Fqrh6DuVQf3tea69OvrCWVJocuugmaznHKNQKN19gTA=" ,
+        "avatar": "default-avatar.png", 
+        "roles": [1]
       }
     }
-  ]
+
+
+]
   

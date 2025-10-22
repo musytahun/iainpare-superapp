@@ -8,7 +8,7 @@ Langkah-langkah setup proyek:
 2. Salin file .env.example menjadi .env di direktori /backend-django/, lalu sesuaikan isinya.
 cp backend-django/.env.example backend-django/.env
 3. Masuk ke direktori backend, lalu install dependencies menggunakan Poetry:
-cd backend-django
+cd backend-django > poetry install
 poetry install
 4. Jalankan migrasi database:
 poetry run invoke migrate
@@ -20,9 +20,9 @@ poetry run invoke loaddata apps/accounts/fixtures/initial_roles.json
 poetry run invoke dev
 8. Masuk ke direktori frontend, lalu install dependencies (jika belum):
 cd frontend-next
-npm install
+pnpm install
 9. Jalankan frontend (mode development):
-npm run dev
+pnpm run dev
 10. Akses aplikasi di browser:
 http://localhost:3000/gate/login
 
