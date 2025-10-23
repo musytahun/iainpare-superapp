@@ -69,7 +69,6 @@ def refresh_access_token(refresh_token: str):
             raise Exception("Token tidak valid")
 
         user_id = payload.get("user_id")
-        from .models import User
         user = User.objects.get(id=user_id)
 
         # access_token, new_refresh_token = generate_tokens(user) # untuk Rotating Refresh Token hasilnya sliding session

@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     # apps custom
     "apps.core",
     "apps.accounts",
+    "apps.references",
+    "apps.people",
+    "apps.lppm",
 ]
 
 MIDDLEWARE = [

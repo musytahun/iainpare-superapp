@@ -32,7 +32,8 @@ def startapp(c, app):
 
 @task
 def makemigrations(c, app=""):
-    # poetry run invoke makemigrations -- app
+    # poetry run invoke makemigrations -> semua app
+    # poetry run invoke makemigrations -- app -> app tertentu
     cmd = f"poetry run python manage.py makemigrations {app} --settings={DJANGO_SETTINGS}"
     c.run(cmd, pty=PTY_SUPPORTED)
 
