@@ -3,7 +3,7 @@ from .jabatan_fungsional import *
 from .program_studi import *
 from .fakultas import *
 from .bidang_kepakaran import *
-from .tahun_kegiatan import *
+from .tahun import *
 from .sumber_dana import *
 from .kabupaten_kota import *
 from .provinsi import *

@@ -142,12 +142,12 @@ export default function MenuPage() {
       })
       .filter((mod: Module) => mod.roles.length > 0)
       .sort((a: Module, b: Module) => {
-        // pastikan "Settings" (atau nama lain seperti "Pengaturan") selalu terakhir
+        // pastikan "Settings" (atau nama lain seperti "References") selalu terakhir
         const aName = a.name.toLowerCase();
         const bName = b.name.toLowerCase();
     
-        if (aName === "settings" || aName === "pengaturan") return 1; // dorong ke akhir
-        if (bName === "settings" || bName === "pengaturan") return -1;
+        if (aName === "settings" || aName === "references") return -1; // dorong ke akhir
+        if (bName === "settings" || bName === "references") return -1;
     
         return aName.localeCompare(bName, "id"); // urutkan abjad (locale Indonesia)
       });

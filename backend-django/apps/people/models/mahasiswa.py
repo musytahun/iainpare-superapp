@@ -7,4 +7,4 @@ class Mahasiswa(models.Model):
     person = models.OneToOneField(Person, on_delete=models.CASCADE)
     nim = models.CharField(max_length=20, unique=True)
     angkatan = models.IntegerField()
-    program_studi = models.ForeignKey(ProgramStudi, on_delete=models.SET_NULL, null=True)
+    program_studi = models.ForeignKey(ProgramStudi, on_delete=models.SET_NULL, null=True, blank=True)
