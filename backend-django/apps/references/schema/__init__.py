@@ -10,15 +10,46 @@ from .program_studi_schema import ProgramStudiQuery, ProgramStudiMutation
 from .provinsi_schema import ProvinsiQuery, ProvinsiMutation
 from .sumber_dana_schema import SumberDanaQuery, SumberDanaMutation
 from .tahun_schema import TahunQuery, TahunMutation
+from .jenis_kolaborasi_schema import JenisKolaborasiQuery, JenisKolaborasiMutation
+from .kelompok_riset_schema import KelompokRisetQuery, KelompokRisetMutation
 
 
 @strawberry.type
-class Query(BidangKepakaranQuery, FakultasQuery, JabatanFungsionalQuery, JenisPublikasiQuery, KabupatenKotaQuery, PangkatGolonganQuery, PenerbitQuery, ProgramStudiQuery, ProvinsiQuery, SumberDanaQuery, TahunQuery):
+class Query(
+    BidangKepakaranQuery, 
+    FakultasQuery, 
+    JabatanFungsionalQuery, 
+    JenisPublikasiQuery, 
+    KabupatenKotaQuery, 
+    PangkatGolonganQuery, 
+    PenerbitQuery, 
+    ProgramStudiQuery, 
+    ProvinsiQuery, 
+    SumberDanaQuery, 
+    TahunQuery,
+    JenisKolaborasiQuery,
+    KelompokRisetQuery
+    ):
     """Gabungan semua query di domain accounts"""
     pass
 
 
 @strawberry.type
-class Mutation(BidangKepakaranMutation, FakultasMutation, JabatanFungsionalMutation, JenisPublikasiMutation, KabupatenKotaMutation, PangkatGolonganMutation, PenerbitMutation, ProgramStudiMutation, ProvinsiMutation, SumberDanaMutation, TahunMutation):
+class Mutation(
+    BidangKepakaranMutation, 
+    FakultasMutation, 
+    JabatanFungsionalMutation, 
+    JenisPublikasiMutation, 
+    KabupatenKotaMutation, 
+    PangkatGolonganMutation, 
+    PenerbitMutation, 
+    ProgramStudiMutation, 
+    ProvinsiMutation, 
+    SumberDanaMutation, 
+    TahunMutation,
+    JenisKolaborasiMutation,
+    KelompokRisetMutation
+    ):
+
     """Gabungan semua mutation di domain accounts"""
     pass

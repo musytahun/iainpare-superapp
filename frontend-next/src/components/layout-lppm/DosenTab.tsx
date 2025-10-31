@@ -1,20 +1,116 @@
 "use client";
 
-import { useQuery } from "@apollo/client";
-import { GET_DOSEN } from "@/graphql/lppm/dosen.graphql";
-import { SearchIcon, PlusIcon, DownloadIcon, UploadIcon, PencilIcon, TrashIcon } from "@/components/icons/Icons";
+import { useQuery, useMutation } from "@apollo/client";
+import { useState } from "react";
 import { Link } from "lucide-react";
 import Image from "next/image";
+import { SearchIcon, PlusIcon, DownloadIcon, UploadIcon, PencilIcon, TrashIcon } from "@/components/icons/Icons";
+import { GET_DOSEN, CREATE_DOSEN, UPDATE_DOSEN, DELETE_DOSEN } from "@/graphql/people/dosen.graphql";
+import AddDosenModal from "@/components/ui/lppm/AddDosenModal";
+import EditDosenModal from "@/components/ui/lppm/EditDosenModal";
+import ConfirmModal from '@/components/shared/ConfirmModal';
 
 
 const DosenTab = () => {
 
   const { data, loading, error } = useQuery(GET_DOSEN);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [editingDosen, setEditingDosen] = useState<any | null>(null);
+  const [dosenToDelete, setDosenToDelete] = useState<number | null>(null);
+  const [createDosen] = useMutation(CREATE_DOSEN, { refetchQueries: [{ query: GET_DOSEN }], }); // refresh tabel otomatis setelah tambah
+  const [updateDosen] = useMutation(UPDATE_DOSEN, { refetchQueries: [{ query: GET_DOSEN }], });
+  const [deleteDosen] = useMutation(DELETE_DOSEN, { refetchQueries: [{ query: GET_DOSEN }], });
+  
+  const handleAddDosen = async (dosen: any) => {
+    try {
+      await createDosen({
+        variables: {
+          name: dosen.name || null,
+          email: dosen.email || null,
+          nomorHp: dosen.nomorHp || null,
+          alamat: dosen.alamat || null,
+          fotoProfil: dosen.fotoProfil || null,
+          nidn: dosen.nidn || null,
+          nip: dosen.nip || null,
+          gelarDepan: dosen.gelarDepan || null,
+          gelarBelakang: dosen.gelarBelakang || null,
+          jabatanFungsionalId: dosen.jabatanFungsionalId ? parseInt(dosen.jabatanFungsionalId) : null,
+          pangkatGolonganId: dosen.pangkatGolonganId ? parseInt(dosen.pangkatGolonganId) : null,
+          programStudiId: dosen.programStudiId ? parseInt(dosen.programStudiId) : null,
+          bidangKepakaranId: dosen.bidangKepakaranId ? parseInt(dosen.bidangKepakaranId) : null,
+        },
+      });
+      setIsAddModalOpen(false);
+    } catch (err) {
+      console.error("Gagal menambah dosen:", err);
+      alert("Terjadi kesalahan saat menyimpan data dosen.");
+    }
+  };
+
+  const handleEditClick = (dosen: any) => {
+      setEditingDosen(dosen);
+      setIsEditModalOpen(true);
+  };
+
+  const handleCloseEditModal = () => {
+      setIsEditModalOpen(false);
+      setEditingDosen(null);
+  };
+
+  const handleUpdateDosen = async (dosen: any) => {
+    try {
+      console.log("Dosen ID:", dosen);
+      await updateDosen({
+        variables: {
+          id: Number(dosen.id),
+          name: dosen.name || null,
+          email: dosen.email || null,
+          nomorHp: dosen.nomorHp || null,
+          alamat: dosen.alamat || null,
+          fotoProfil: dosen.fotoProfil || null,
+          nidn: dosen.nidn || null,
+          nip: dosen.nip || null,
+          gelarDepan: dosen.gelarDepan || null,
+          gelarBelakang: dosen.gelarBelakang || null,
+          jabatanFungsionalId: dosen.jabatanFungsionalId ? parseInt(dosen.jabatanFungsionalId) : null,
+          pangkatGolonganId: dosen.pangkatGolonganId ? parseInt(dosen.pangkatGolonganId) : null,
+          programStudiId: dosen.programStudiId ? parseInt(dosen.programStudiId) : null,
+          bidangKepakaranId: dosen.bidangKepakaranId ? parseInt(dosen.bidangKepakaranId) : null,
+        },
+      });
+      handleCloseEditModal();
+    } catch (err) {
+      console.error("Gagal menambah dosen:", err);
+      alert("Terjadi kesalahan saat menyimpan data dosen.");
+    }
+  };
+
+  const handleDeleteClick = async (dosenId: number | string) => {
+    setDosenToDelete(dosenId);
+    setIsConfirmModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (dosenToDelete) {
+      try {
+        await deleteDosen({ variables: { id: Number(dosenToDelete) } });
+        setIsConfirmModalOpen(false);
+        setDosenToDelete(null);
+      } catch (err) {
+        console.error("Gagal menghapus dosen:", err);
+        alert("Terjadi kesalahan saat menghapus data dosen.");
+      }
+    }
+  };
+
 
   if (loading) return <p className="p-4 text-gray-500">Memuat data...</p>;
   if (error) return <p className="p-4 text-red-500">Terjadi kesalahan: {error.message}</p>;
 
   const getDosen = data?.getDosen || [];
+  console.log("DATA DOSEN:", getDosen);
 
   return (
       <>
@@ -57,7 +153,7 @@ const DosenTab = () => {
                       className="hidden"
                   />
                   <button 
-                      // onClick={() => setIsAddModalOpen(true)}
+                      onClick={() => setIsAddModalOpen(true)}
                       className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-white bg-teal-800 rounded-lg hover:bg-primary/90 transition-colors"
                   >
                       <PlusIcon className="h-5 w-5" />
@@ -98,12 +194,16 @@ const DosenTab = () => {
               </tr>
             </thead>
             <tbody>
-              {getDosen.map((getDosen: any) => (
+              { getDosen.map((getDosen: any) => (
                 <tr key={getDosen.id} className="bg-white border-b hover:bg-gray-50">
                   <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap flex items-center">
-                      {/* <img className="w-10 h-10 rounded-full mr-4" src={getDosen.photoUrl} alt={getDosen.name} /> */}
                       <Image
-                        src={`/${getDosen?.fotoProfil || "default-avatar.png"}`}
+                        src={
+                          getDosen?.fotoProfil
+                            ? `/${getDosen.fotoProfil}`
+                            // : `https://picsum.photos/id/${Math.floor(Math.random() * 1000)}/200/200`
+                            : "/default-avatar.png"
+                        }
                         alt={getDosen.name || "User"}
                         width={32}
                         height={32}
@@ -112,10 +212,8 @@ const DosenTab = () => {
                       {getDosen.gelarDepan} {getDosen.name}, {getDosen.gelarBelakang}
                   </th>
                   <td className="px-6 py-4">{getDosen.nidn}</td>
-                  {/* <td className="px-6 py-4">{getDosen.functionalPosition}</td> */}
-                  <td className="px-6 py-4">beta</td>
-                  {/* <td className="px-6 py-4">{getDosen.prodi}</td> */}
-                  <td className="px-6 py-4">beta</td>
+                  <td className="px-6 py-4">{getDosen.jabatanFungsional?.name || "-"}</td>
+                  <td className="px-6 py-4">{getDosen.programStudi?.name || "-"}</td>
                   <td className="px-6 py-4 flex items-center space-x-4">
                     <Link 
                       // to={`/lecturers/${lecturer.id}`} 
@@ -125,16 +223,16 @@ const DosenTab = () => {
                       Lihat Detail
                     </Link>
                     <button
-                      // onClick={() => handleEditClick(lecturer)}
+                      onClick={() => handleEditClick(getDosen)}
                       className="p-1 text-blue-600 hover:text-blue-800"
-                      // aria-label={`Edit ${lecturer.name}`}
+                      aria-label={`Edit ${getDosen.name}`}
                     >
                       <PencilIcon className="h-5 w-5" />
                     </button>
                     <button
-                      // onClick={() => handleDeleteClick(lecturer.id)}
+                      onClick={() => handleDeleteClick(getDosen.id)}
                       className="p-1 text-red-600 hover:text-red-800"
-                      // aria-label={`Hapus ${lecturer.name}`}
+                      aria-label={`Hapus ${getDosen.name}`}
                     >
                       <TrashIcon className="h-5 w-5" />
                     </button>
@@ -147,30 +245,30 @@ const DosenTab = () => {
       </div>
       
       {/* Edit Modal */}
-      {/* {editingLecturer && (
-          <EditLecturerModal
+      {editingDosen && (
+          <EditDosenModal
               isOpen={isEditModalOpen}
               onClose={handleCloseEditModal}
-              onSave={handleUpdateLecturer}
-              lecturer={editingLecturer}
+              onSave={handleUpdateDosen}
+              dosen={editingDosen}
           />
-      )} */}
+      )}
 
       {/* Add Modal */}
-      {/* <AddLecturerModal
+      <AddDosenModal
           isOpen={isAddModalOpen}
           onClose={() => setIsAddModalOpen(false)}
-          onSave={handleAddLecturer}
-      /> */}
+          onSave={handleAddDosen}
+      />
 
       {/* Confirm Delete Modal */}
-      {/* <ConfirmModal
+      <ConfirmModal
           isOpen={isConfirmModalOpen}
           onClose={() => setIsConfirmModalOpen(false)}
           onConfirm={handleConfirmDelete}
-          title="Konfirmasi Hapus Dosen"
-          message="Apakah Anda yakin ingin menghapus data dosen ini? Tindakan ini tidak dapat diurungkan."
-      /> */}
+          title="Konfirmasi Hapus"
+          message="Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat diurungkan."
+      />
       </>
     );
   };

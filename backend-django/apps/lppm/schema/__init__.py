@@ -1,16 +1,16 @@
 import strawberry
-from .penelitian_schema import PeneliitianQuery
+from .penelitian_schema import PenelitianQuery, PenelitianMutation
 from .pengabdian_schema import PengabdianQuery
 from .publikasi_schema import PublikasiQuery
 
 
 @strawberry.type
-class Query(PeneliitianQuery, PengabdianQuery, PublikasiQuery):
+class Query(PenelitianQuery, PengabdianQuery, PublikasiQuery):
     """Gabungan semua query di domain accounts"""
     pass
 
 
-# @strawberry.type
-# class Mutation(AuthMutation, UserMutation, RoleMutation, PermissionMutation, ModuleMutation):
-#     """Gabungan semua mutation di domain accounts"""
-#     pass
+@strawberry.type
+class Mutation(PenelitianMutation):
+    """Gabungan semua mutation di domain accounts"""
+    pass

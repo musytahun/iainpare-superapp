@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import DosenTab from "@/components/layout-lppm/DosenTab";
 import { UsersIconLppm, BriefcaseIcon, GlobeAltIcon, BookOpenIcon } from "@/components/icons/Icons";
+import DosenTab from "@/components/layout-lppm/DosenTab";
+import PenelitianTab from "@/components/layout-lppm/PenelitianTab";
 
 
 type Tab = 'dosen' | 'penelitian' | 'pengabdian' | 'publikasi';
@@ -23,6 +24,7 @@ const renderContent = () => {
           return <DosenTab />;
           // return <DosenTab lecturers={lecturers} setLecturers={setLecturers} />;
       case 'penelitian':
+          return <PenelitianTab />;
           // return <PenelitianTab lecturers={lecturers} />;
       case 'pengabdian':
           // return <PengabdianTab lecturers={lecturers} />;
@@ -34,8 +36,8 @@ const renderContent = () => {
 }
 
   return (
-    <div className="space-y-6 bg-white">
-      <div className="bg-surface p-2 rounded-lg shadow-md">
+    <div className="space-y-6">
+      <div className="bg-white p-2 rounded-lg shadow-md">
           <div className="border-b border-gray-200">
               <nav className="-mb-px flex space-x-4" aria-label="Tabs">
                   {tabs.map(tab => (
@@ -55,7 +57,7 @@ const renderContent = () => {
               </nav>
           </div>
       </div>
-      <div>
+      <div className="bg-white p-2 rounded-lg shadow-sm mb-6">
         {renderContent()}
       </div>
     </div>

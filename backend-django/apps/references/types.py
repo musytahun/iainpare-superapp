@@ -82,3 +82,17 @@ class TahunType:
     id: auto
     code: auto
     name: auto
+
+
+@strawberry.django.type(JenisKolaborasi)
+class JenisKolaborasiType:
+    id: auto
+    code: auto
+    name: auto
+
+
+@strawberry.django.type(KelompokRiset)
+class KelompokRisetType:
+    id: auto
+    code: auto
+    name: auto

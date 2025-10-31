@@ -9,3 +9,5 @@ from .kabupaten_kota import *
 from .provinsi import *
 from .jenis_publikasi import *
 from .penerbit import *
+from .jenis_kolaborasi import *
+from .kelompok_riset import *

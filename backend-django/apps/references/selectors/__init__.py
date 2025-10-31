@@ -9,3 +9,5 @@ from .program_studi_selector import *
 from .provinsi_selector import *
 from .sumber_dana_selector import *
 from .tahun_selector import *
+from .jenis_kolaborasi_selector import *
+from .kelompok_riset_selector import *

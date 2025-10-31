@@ -15,7 +15,7 @@ const Header: React.FC = () => {
 
   const pageTitle = useMemo(() => {
     if (pathname === "/") return "Dashboard";
-    if (pathname.startsWith("/lecturers/")) return "Profil Dosen";
+    if (pathname.startsWith("/dosen/")) return "Profil Dosen";
     if (pathname === "/lppm/database") return "Database";
     if (pathname === "/lppm/instrumen-akreditasi") return "Instrumen Akreditasi";
     if (pathname === "/lppm/sasaran-strategis") return "Sasaran Strategis";
@@ -29,7 +29,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="h-20 bg-surface border-b border-gray-200 flex items-center justify-between px-6 lg:px-8">
+    <header className="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-6 lg:px-8">
       <div className="flex items-center">
         <h2 className="text-2xl font-bold text-gray-800">{pageTitle}</h2>
       </div>

@@ -9,3 +9,5 @@ from .program_studi_service import *
 from .provinsi_service import *
 from .sumber_dana_service import *
 from .tahun_service import *
+from .jenis_kolaborasi_service import *
+from .kelompok_riset_service import *
