@@ -6,8 +6,9 @@ from .bidang_kepakaran import *
 from .tahun import *
 from .sumber_dana import *
 from .kabupaten_kota import *
+from .karya_ilmiah import *
 from .provinsi import *
-from .jenis_publikasi import *
+from .indeksasi import *
 from .penerbit import *
 from .jenis_kolaborasi import *
-from .kelompok_riset import *
+from .kelompok_keilmuan import *

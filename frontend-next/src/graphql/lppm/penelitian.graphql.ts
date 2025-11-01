@@ -18,22 +18,22 @@ export const CREATE_PENELITIAN = gql`
     $judul: String!,
     $keterangan: String,
     $jumlahDana: Decimal,
-    $ketuaPenelitiId: Int,
-    $anggotaPenelitiIds: [Int!],
+    $ketuaId: Int,
+    $anggotaIds: [Int!],
     $sumberDanaId: Int,
-    $kelompokRisetId: Int 
-    $jenisKolaborasiId: Int 
+    $kelompokKeilmuanId: Int,
+    $jenisKolaborasiId: Int,
     $tahunId: Int 
   ) {
     createPenelitian(
       judul: $judul,
       keterangan: $keterangan,
       jumlahDana: $jumlahDana,
-      ketuaPenelitiId: $ketuaPenelitiId,
-      anggotaPenelitiIds: $anggotaPenelitiIds,
+      ketuaId: $ketuaId,
+      anggotaIds: $anggotaIds,
       sumberDanaId: $sumberDanaId,
-      kelompokRisetId: $kelompokRisetId 
-      jenisKolaborasiId: $jenisKolaborasiId 
+      kelompokKeilmuanId: $kelompokKeilmuanId,
+      jenisKolaborasiId: $jenisKolaborasiId,
       tahunId: $tahunId 
     ) {
       ...PenelitianFragment
@@ -50,11 +50,11 @@ export const UPDATE_PENELITIAN = gql`
     $judul: String!,
     $keterangan: String,
     $jumlahDana: Decimal,
-    $ketuaPenelitiId: Int,
-    $anggotaPenelitiIds: [Int!],
+    $ketuaId: Int,
+    $anggotaIds: [Int!],
     $sumberDanaId: Int,
-    $kelompokRisetId: Int 
-    $jenisKolaborasiId: Int 
+    $kelompokKeilmuanId: Int,
+    $jenisKolaborasiId: Int,
     $tahunId: Int 
   ) {
     updatePenelitian(
@@ -62,11 +62,11 @@ export const UPDATE_PENELITIAN = gql`
       judul: $judul,
       keterangan: $keterangan,
       jumlahDana: $jumlahDana,
-      ketuaPenelitiId: $ketuaPenelitiId,
-      anggotaPenelitiIds: $anggotaPenelitiIds,
+      ketuaId: $ketuaId,
+      anggotaIds: $anggotaIds,
       sumberDanaId: $sumberDanaId,
-      kelompokRisetId: $kelompokRisetId 
-      jenisKolaborasiId: $jenisKolaborasiId 
+      kelompokKeilmuanId: $kelompokKeilmuanId,
+      jenisKolaborasiId: $jenisKolaborasiId,
       tahunId: $tahunId 
     ) {
       ...PenelitianFragment

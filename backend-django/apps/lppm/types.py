@@ -3,19 +3,19 @@ from strawberry import auto, LazyType
 from typing import List, Optional
 
 from apps.lppm.models import Penelitian, Pengabdian, Publikasi
-from apps.references.types import SumberDanaType, KelompokRisetType, JenisKolaborasiType, TahunType
+from apps.references.types import *
 
 
 @strawberry.django.type(Penelitian)
 class PenelitianType:
     id: auto
     judul: auto
-    ketua_peneliti: Optional["LazyType['PersonType', 'apps.people.types']"]
-    anggota_peneliti: Optional[List["LazyType['PersonType', 'apps.people.types']"]]
+    ketua: Optional["LazyType['PersonType', 'apps.people.types']"]
+    anggota: Optional[List["LazyType['PersonType', 'apps.people.types']"]]
     keterangan: auto
     jumlah_dana: auto
     sumber_dana: Optional[SumberDanaType]
-    kelompok_riset: Optional[KelompokRisetType]
+    kelompok_keilmuan: Optional[KelompokKeilmuanType]
     jenis_kolaborasi: Optional[JenisKolaborasiType]
     tahun: Optional[TahunType]
 
@@ -23,15 +23,30 @@ class PenelitianType:
 class PengabdianType:
     id: auto
     judul: auto
-    # lokasi: Optional[str]
-    # jumlah_dana: Optional[int]
+    ketua: Optional["LazyType['PersonType', 'apps.people.types']"]
+    anggota: Optional[List["LazyType['PersonType', 'apps.people.types']"]]
+    keterangan: auto
+    jumlah_dana: auto
+    sumber_dana: Optional[SumberDanaType]
+    kelompok_keilmuan: Optional[KelompokKeilmuanType]
+    jenis_kolaborasi: Optional[JenisKolaborasiType]
+    tahun: Optional[TahunType]
+    lokasi: Optional[KabupatenKotaType]
 
 @strawberry.django.type(Publikasi)
 class PublikasiType:
     id: auto
     judul: auto
-    # penerbit: Optional[str]
-    # jenis: Optional[str]
+    ketua: Optional["LazyType['PersonType', 'apps.people.types']"]
+    anggota: Optional[List["LazyType['PersonType', 'apps.people.types']"]]
+    keterangan: auto
+    kelompok_keilmuan: Optional[KelompokKeilmuanType]
+    indeksasi: Optional[IndeksasiType]
+    penerbit: Optional[PenerbitType]
+    no_regis: auto
+    tahun: Optional[TahunType]
+    link: auto
+    karya_ilmiah: Optional[KaryaIlmiahType]
 
 @strawberry.type
 class LppmProfileType:

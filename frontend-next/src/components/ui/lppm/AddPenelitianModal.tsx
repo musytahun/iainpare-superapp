@@ -4,7 +4,7 @@ import { XIcon } from "@/components/icons/Icons";
 import { useQuery } from '@apollo/client';
 import { GET_PERSON } from '@/graphql/people/person.graphql';
 import { GET_SUMBER_DANA } from '@/graphql/references/sumber_dana.graphql';
-import { GET_KELOMPOK_RISET } from '@/graphql/references/kelompok_riset.graphql';
+import { GET_KELOMPOK_KEILMUAN } from '@/graphql/references/kelompok_keilmuan.graphql';
 import { GET_JENIS_KOLABORASI } from '@/graphql/references/jenis_kolaborasi.graphql';
 import { GET_TAHUN } from '@/graphql/references/tahun.graphql';
 
@@ -19,17 +19,17 @@ const AddPenelitianModal: React.FC<AddPenelitianModalProps> = ({ isOpen, onClose
     judul: '',
     keterangan: '',
     jumlahDana: '',
-    ketuaPenelitiId: '',
-    anggotaPenelitiIds: [] as number[],
+    ketuaId: '',
+    anggotaIds: [] as number[],
     sumberDanaId: '',
-    kelompokRisetId: '',
+    kelompokKeilmuanId: '',
     jenisKolaborasiId: '',
     tahunId: '',
   });
 
   const { data: personData, loading: personLoading, error: personError } = useQuery(GET_PERSON);
   const { data: sumberDanaData, loading: sumberDanaLoading, error: sumberDanaError } = useQuery(GET_SUMBER_DANA);
-  const { data: kelompokRisetData, loading: kelompokRisetLoading, error: kelompokRisetError } = useQuery(GET_KELOMPOK_RISET);
+  const { data: kelompokKeilmuanData, loading: kelompokKeilmuanLoading, error: kelompokKeilmuanError } = useQuery(GET_KELOMPOK_KEILMUAN);
   const { data: jenisKolaborasiData, loading: jenisKolaborasiLoading, error: jenisKolaborasiError } = useQuery(GET_JENIS_KOLABORASI);
   const { data: tahunData, loading: tahunLoading, error: tahunError } = useQuery(GET_TAHUN);
   
@@ -49,10 +49,10 @@ const AddPenelitianModal: React.FC<AddPenelitianModalProps> = ({ isOpen, onClose
         judul: '',
         keterangan: '',
         jumlahDana: '',
-        ketuaPenelitiId: '',
-        anggotaPenelitiIds: [],
+        ketuaId: '',
+        anggotaIds: [],
         sumberDanaId: '',
-        kelompokRisetId: '',
+        kelompokKeilmuanId: '',
         jenisKolaborasiId: '',
         tahunId: '',
     }); // Reset form after saving
@@ -91,9 +91,9 @@ const AddPenelitianModal: React.FC<AddPenelitianModalProps> = ({ isOpen, onClose
                     <p className="text-red-500">Gagal memuat data Peneliti</p>
                 ) : (
                     <select
-                    name="ketuaPenelitiId"
-                    value={formData.ketuaPenelitiId}
-                    onChange={(e) => setFormData({ ...formData, ketuaPenelitiId: Number(e.target.value) })}
+                    name="ketuaId"
+                    value={formData.ketuaId}
+                    onChange={(e) => setFormData({ ...formData, ketuaId: Number(e.target.value) })}
                     className="w-full text-sm px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
                 
                     >
@@ -128,7 +128,7 @@ const AddPenelitianModal: React.FC<AddPenelitianModalProps> = ({ isOpen, onClose
                 ) : (
                     <Select
                     isMulti
-                    name="anggotaPenelitiIds"
+                    name="anggotaIds"
                     options={personData?.getPerson?.map((person: any) => ({
                         value: person.id,
                         label: person.name,
@@ -139,11 +139,11 @@ const AddPenelitianModal: React.FC<AddPenelitianModalProps> = ({ isOpen, onClose
                     onChange={(selectedOptions) =>
                         setFormData({
                         ...formData,
-                        anggotaPenelitiIds: selectedOptions.map((opt: any) => opt.value),
+                        anggotaIds: selectedOptions.map((opt: any) => opt.value),
                         })
                     }
                     value={personData?.getPerson
-                        ?.filter((d: any) => formData.anggotaPenelitiIds?.includes(d.id))
+                        ?.filter((d: any) => formData.anggotaIds?.includes(d.id))
                         .map((d: any) => ({ value: d.id, label: d.name })) || []}
                     />
                 )}
@@ -177,24 +177,24 @@ const AddPenelitianModal: React.FC<AddPenelitianModalProps> = ({ isOpen, onClose
             
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                Kelompok Riset <span className="text-red-500">*</span>
+                Kelompok Keilmuan <span className="text-red-500">*</span>
               </label>
 
-              {kelompokRisetLoading ? (
-                <p className="text-slate-500">Memuat data Kelompok Riset...</p>
-              ) : kelompokRisetError ? (
-                <p className="text-red-500">Gagal memuat data Kelompok Riset</p>
+              {kelompokKeilmuanLoading ? (
+                <p className="text-slate-500">Memuat data Kelompok Keilmuan...</p>
+              ) : kelompokKeilmuanError ? (
+                <p className="text-red-500">Gagal memuat data Kelompok Keilmuan</p>
               ) : (
                 <select
-                  value={formData.kelompokRisetId}
-                  onChange={(e) => setFormData({ ...formData, kelompokRisetId: e.target.value })}
+                  value={formData.kelompokKeilmuanId}
+                  onChange={(e) => setFormData({ ...formData, kelompokKeilmuanId: e.target.value })}
                   className="w-full text-sm px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-transparent text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
                 
                 >
-                  <option value="">-- Pilih Kelompok Riset --</option>
-                  {kelompokRisetData?.getKelompokRiset?.map((kelompokRiset: any) => (
-                    <option key={kelompokRiset.id} value={kelompokRiset.id}>
-                      {kelompokRiset.name}
+                  <option value="">-- Pilih Kelompok Keilmuan --</option>
+                  {kelompokKeilmuanData?.getKelompokKeilmuan?.map((kelompokKeilmuan: any) => (
+                    <option key={kelompokKeilmuan.id} value={kelompokKeilmuan.id}>
+                      {kelompokKeilmuan.name}
                     </option>
                   ))}
                 </select>

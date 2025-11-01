@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { UsersIconLppm, BriefcaseIcon, GlobeAltIcon, BookOpenIcon } from "@/components/icons/Icons";
 import DosenTab from "@/components/layout-lppm/DosenTab";
 import PenelitianTab from "@/components/layout-lppm/PenelitianTab";
+import PengabdianTab from "@/components/layout-lppm/PengabdianTab";
+import PublikasiTab from "@/components/layout-lppm/PublikasiTab";
 
 
 type Tab = 'dosen' | 'penelitian' | 'pengabdian' | 'publikasi';
@@ -22,14 +24,12 @@ const renderContent = () => {
   switch(activeTab) {
       case 'dosen':
           return <DosenTab />;
-          // return <DosenTab lecturers={lecturers} setLecturers={setLecturers} />;
       case 'penelitian':
           return <PenelitianTab />;
-          // return <PenelitianTab lecturers={lecturers} />;
       case 'pengabdian':
-          // return <PengabdianTab lecturers={lecturers} />;
+        return <PengabdianTab />;
       case 'publikasi':
-          // return <PublikasiTab lecturers={lecturers} />;
+        return <PublikasiTab />;
       default:
           return null;
   }

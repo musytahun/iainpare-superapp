@@ -6,7 +6,7 @@ export const PENELITIAN_FRAGMENT = gql`
     judul
     jumlahDana
     keterangan
-    ketuaPeneliti {
+    ketua {
         id
         name
         email
@@ -14,7 +14,7 @@ export const PENELITIAN_FRAGMENT = gql`
         nomorHp
         fotoProfil
     }
-    anggotaPeneliti {
+    anggota {
         id
         name
         email
@@ -27,7 +27,7 @@ export const PENELITIAN_FRAGMENT = gql`
         code
         name
     }
-    kelompokRiset {
+    kelompokKeilmuan {
         id
         code
         name

@@ -44,8 +44,10 @@ def migrate(c):
 
 @task
 def flush(c):
-    # poetry run invoke migrate
+    # poetry run invoke flush
     c.run(f"poetry run python manage.py flush --settings={DJANGO_SETTINGS}", pty=PTY_SUPPORTED)
+# Perintah ini digunakan untuk menghapus semua data dari semua tabel di database, tanpa menghapus struktur tabel atau migrasi. 
+# Setelah dijalankan, semua tabel akan dikosongkan dan primary key akan di-reset ke 1
 
 @task
 def shell(c):

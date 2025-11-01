@@ -15,7 +15,7 @@ poetry run invoke migrate
 5. Buat superuser (akun admin):
 poetry run python manage.py createsuperuser --settings=backend.settings.dev
 6. Load data awal untuk role dan permission:
-poetry run invoke loaddata apps/accounts/fixtures/initial_roles.json
+import csv database yang disediakan atau poetry run invoke loaddata apps/accounts/fixtures/initial_roles.json
 7. Jalankan server backend (mode development):
 poetry run invoke dev
 8. Masuk ke direktori frontend, lalu install dependencies (jika belum):

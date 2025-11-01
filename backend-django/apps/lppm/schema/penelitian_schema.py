@@ -37,21 +37,21 @@ class PenelitianMutation:
         judul: str,
         keterangan: Optional[str] = None,
         jumlah_dana: Optional[Decimal] = None,
-        ketua_peneliti_id: Optional[int] = None,
-        anggota_peneliti_ids: Optional[List[int]] = None,
+        ketua_id: Optional[int] = None,
+        anggota_ids: Optional[List[int]] = None,
         sumber_dana_id: Optional[int] = None,
-        kelompok_riset_id: Optional[int] = None,
+        kelompok_keilmuan_id: Optional[int] = None,
         jenis_kolaborasi_id: Optional[int] = None,
         tahun_id: Optional[int] = None
         ) -> Optional[PenelitianType]:
         penelitian = create_penelitian(
             judul=judul,
-            ketua_peneliti_id=ketua_peneliti_id,
-            anggota_peneliti_ids=anggota_peneliti_ids,
+            ketua_id=ketua_id,
+            anggota_ids=anggota_ids,
             keterangan=keterangan,
             jumlah_dana=jumlah_dana,
             sumber_dana_id=sumber_dana_id,
-            kelompok_riset_id=kelompok_riset_id,
+            kelompok_keilmuan_id=kelompok_keilmuan_id,
             jenis_kolaborasi_id=jenis_kolaborasi_id,
             tahun_id=tahun_id
             )
@@ -66,22 +66,22 @@ class PenelitianMutation:
         judul: str, 
         keterangan: Optional[str] = None,
         jumlah_dana: Optional[Decimal] = None,
-        ketua_peneliti_id: Optional[int] = None,
-        anggota_peneliti_ids: Optional[List[int]] = None,
+        ketua_id: Optional[int] = None,
+        anggota_ids: Optional[List[int]] = None,
         sumber_dana_id: Optional[int] = None,
-        kelompok_riset_id: Optional[int] = None,
+        kelompok_keilmuan_id: Optional[int] = None,
         jenis_kolaborasi_id: Optional[int] = None,
         tahun_id: Optional[int] = None
         ) -> Optional[PenelitianType]:
         penelitian = update_penelitian(
             id=id, 
             judul=judul,
-            ketua_peneliti_id=ketua_peneliti_id,
-            anggota_peneliti_ids=anggota_peneliti_ids,
+            ketua_id=ketua_id,
+            anggota_ids=anggota_ids,
             keterangan=keterangan,
             jumlah_dana=jumlah_dana,
             sumber_dana_id=sumber_dana_id,
-            kelompok_riset_id=kelompok_riset_id,
+            kelompok_keilmuan_id=kelompok_keilmuan_id,
             jenis_kolaborasi_id=jenis_kolaborasi_id,
             tahun_id=tahun_id
             )

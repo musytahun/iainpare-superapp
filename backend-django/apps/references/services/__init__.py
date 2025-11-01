@@ -1,8 +1,9 @@
 from .bidang_kepakaran_service import *
 from .fakultas_service import *
 from .jabatan_fungsional_service import *
-from .jenis_publikasi_service import *
+from .indeksasi_service import *
 from .kabupaten_kota_service import *
+from .karya_ilmiah_service import *
 from .pangkat_golongan_service import *
 from .penerbit_service import *
 from .program_studi_service import *
@@ -10,4 +11,4 @@ from .provinsi_service import *
 from .sumber_dana_service import *
 from .tahun_service import *
 from .jenis_kolaborasi_service import *
-from .kelompok_riset_service import *
+from .kelompok_keilmuan_service import *

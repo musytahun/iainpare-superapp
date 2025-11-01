@@ -29,14 +29,14 @@ const PenelitianTab = () => {
         judul: penelitian.judul || null,
         keterangan: penelitian.keterangan || null,
         jumlahDana: penelitian.jumlahDana || null,
-        ketuaPenelitiId: penelitian.ketuaPenelitiId ? parseInt(penelitian.ketuaPenelitiId) : null,
+        ketuaId: penelitian.ketuaId ? parseInt(penelitian.ketuaId) : null,
         sumberDanaId: penelitian.sumberDanaId ? parseInt(penelitian.sumberDanaId) : null,
-        kelompokRisetId: penelitian.kelompokRisetId ? parseInt(penelitian.kelompokRisetId) : null,
+        kelompokKeilmuanId: penelitian.kelompokKeilmuanId ? parseInt(penelitian.kelompokKeilmuanId) : null,
         jenisKolaborasiId: penelitian.jenisKolaborasiId ? parseInt(penelitian.jenisKolaborasiId) : null,
         tahunId: penelitian.tahunId ? parseInt(penelitian.tahunId) : null,
-        anggotaPenelitiIds:
-          penelitian.anggotaPenelitiIds && penelitian.anggotaPenelitiIds.length > 0
-            ? penelitian.anggotaPenelitiIds.map((id: string | number) => parseInt(id))
+        anggotaIds:
+          penelitian.anggotaIds && penelitian.anggotaIds.length > 0
+            ? penelitian.anggotaIds.map((id: string | number) => parseInt(id))
             : [],
       };
   
@@ -66,14 +66,14 @@ const PenelitianTab = () => {
           judul: penelitian.judul || null,
           keterangan: penelitian.keterangan || null,
           jumlahDana: penelitian.jumlahDana || null,
-          ketuaPenelitiId: penelitian.ketuaPenelitiId ? parseInt(penelitian.ketuaPenelitiId) : null,
+          ketuaId: penelitian.ketuaId ? parseInt(penelitian.ketuaId) : null,
           sumberDanaId: penelitian.sumberDanaId ? parseInt(penelitian.sumberDanaId) : null,
-          kelompokRisetId: penelitian.kelompokRisetId ? parseInt(penelitian.kelompokRisetId) : null,
+          kelompokKeilmuanId: penelitian.kelompokKeilmuanId ? parseInt(penelitian.kelompokKeilmuanId) : null,
           jenisKolaborasiId: penelitian.jenisKolaborasiId ? parseInt(penelitian.jenisKolaborasiId) : null,
           tahunId: penelitian.tahunId ? parseInt(penelitian.tahunId) : null,
-          anggotaPenelitiIds:
-            penelitian.anggotaPenelitiIds && penelitian.anggotaPenelitiIds.length > 0
-              ? penelitian.anggotaPenelitiIds.map((id: string | number) => parseInt(id))
+          anggotaIds:
+            penelitian.anggotaIds && penelitian.anggotaIds.length > 0
+              ? penelitian.anggotaIds.map((id: string | number) => parseInt(id))
               : [],
         },
       });
@@ -113,7 +113,6 @@ const PenelitianTab = () => {
   return (
     <>
       <div className="bg-surface p-6 rounded-lg shadow-md">
-        {/* <AddPenelitianModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} onSave={handleAddPenelitian} /> */}
         <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
             <div className="flex items-center space-x-4 flex-wrap">
               <div className="relative">
@@ -153,20 +152,29 @@ const PenelitianTab = () => {
                   className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-white bg-teal-800 rounded-lg hover:bg-primary/90 transition-colors"
               >
                   <PlusIcon className="h-5 w-5" />
-                  <span>Tambah Penelitian</span>
+                  <span>Tambah</span>
               </button>
-              {/* <button onClick={handleExportData} className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-green-700 bg-green-100 border border-green-200 rounded-lg hover:bg-green-200 transition-colors">
-                  <DownloadIcon className="h-5 w-5" />
+              <button 
+                  // onClick={handleExportData}
+                  className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-green-700 bg-green-100 border border-green-200 rounded-lg hover:bg-green-200 transition-colors"
+              >
+                  <UploadIcon className="h-5 w-5" />
                   <span>Export</span>
               </button>
-              <button onClick={handleDownloadTemplate} className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-primary bg-primary/10 border border-primary/20 rounded-lg hover:bg-primary/20 transition-colors">
+              <button 
+                  // onClick={handleDownloadTemplate}
+                  className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-teal-800 bg-teal-700/10 border border-teal-900/20 rounded-lg hover:bg-primary/20 transition-colors"
+              >
                   <DownloadIcon className="h-5 w-5" />
                   <span>Template</span>
               </button>
-              <button onClick={() => fileInputRef.current?.click()} className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-blue-700 bg-blue-100 border border-blue-200 rounded-lg hover:bg-blue-200 transition-colors">
-                  <UploadIcon className="h-5 w-5" />
+              <button 
+                  // onClick={() => fileInputRef.current?.click()}
+                  className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-blue-700 bg-blue-100 border border-blue-200 rounded-lg hover:bg-blue-200 transition-colors"
+              >
+                  <DownloadIcon className="h-5 w-5" />
                   <span>Import</span>
-              </button> */}
+              </button>
           </div>
         </div>
         <div className="overflow-x-auto">
@@ -178,7 +186,7 @@ const PenelitianTab = () => {
                 <th scope="col" className="px-6 py-3">Anggota Peneliti</th>
                 <th scope="col" className="px-6 py-3">Jumlah Dana</th>
                 <th scope="col" className="px-6 py-3">Sumber Dana</th>
-                <th scope="col" className="px-6 py-3">Kelompok Riset</th>
+                <th scope="col" className="px-6 py-3">Kelompok Keilmuan</th>
                 <th scope="col" className="px-6 py-3">Jenis Kolaborasi</th>
                 <th scope="col" className="px-6 py-3">Tahun</th>
                 <th scope="col" className="px-6 py-3">Aksi</th>
@@ -188,13 +196,13 @@ const PenelitianTab = () => {
               {getPenelitian.map((getPenelitian: any) => (
                 <tr key={`${getPenelitian.id}-${getPenelitian.judul}`} className="bg-white border-b hover:bg-gray-50">
                   <td className="px-6 py-4 font-medium text-gray-900">{getPenelitian.judul}</td>
-                  <td className="px-6 py-4">{getPenelitian.ketuaPeneliti?.name || "-"}</td>
+                  <td className="px-6 py-4">{getPenelitian.ketua?.name || "-"}</td>
                   <td className="px-6 py-4">
-                    {getPenelitian.anggotaPeneliti?.map((anggota: any) => anggota.name).join(", ") || "-"}
+                    {getPenelitian.anggota?.map((anggota: any) => anggota.name).join(", ") || "-"}
                   </td>
                   <td className="px-6 py-4 text-right font-mono">{getPenelitian?.jumlahDana? formatCurrency(Number(getPenelitian.jumlahDana)): "-"}</td>
                   <td className="px-6 py-4">{getPenelitian.sumberDana?.name || "-"}</td>
-                  <td className="px-6 py-4">{getPenelitian.kelompokRiset?.name || "-"}</td>
+                  <td className="px-6 py-4">{getPenelitian.kelompokKeilmuan?.name || "-"}</td>
                   <td className="px-6 py-4">{getPenelitian.jenisKolaborasi?.name || "-"}</td>
                   <td className="px-6 py-4">{getPenelitian.tahun?.name || "-"}</td>
                   <td className="px-6 py-4 flex items-center space-x-4">

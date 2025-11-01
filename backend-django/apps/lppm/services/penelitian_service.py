@@ -5,46 +5,46 @@ from django.db import transaction
 from apps.lppm.models import Penelitian
 from apps.lppm.selectors import penelitian_selector
 from apps.people.models import Person
-from apps.references.models import SumberDana, KelompokRiset, JenisKolaborasi, Tahun
+from apps.references.models import SumberDana, KelompokKeilmuan, JenisKolaborasi, Tahun
 
 def create_penelitian(
         *, 
         judul: str, 
         keterangan: Optional[str] = None,
         jumlah_dana: Optional[Decimal] = None,
-        ketua_peneliti_id: Optional[int] = None,
-        anggota_peneliti_ids: Optional[List[int]] = None,
+        ketua_id: Optional[int] = None,
+        anggota_ids: Optional[List[int]] = None,
         sumber_dana_id: Optional[int] = None,
-        kelompok_riset_id: Optional[int] = None,
+        kelompok_keilmuan_id: Optional[int] = None,
         jenis_kolaborasi_id: Optional[int] = None,
         tahun_id: Optional[int] = None
         ) -> Optional[Penelitian]:
     try:
         with transaction.atomic():
-            ketua_peneliti = Person.objects.get(id=ketua_peneliti_id) if ketua_peneliti_id else None
+            ketua = Person.objects.get(id=ketua_id) if ketua_id else None
             sumber_dana = SumberDana.objects.get(id=sumber_dana_id) if sumber_dana_id else None
-            kelompok_riset = KelompokRiset.objects.get(id=kelompok_riset_id) if kelompok_riset_id else None
+            kelompok_keilmuan = KelompokKeilmuan.objects.get(id=kelompok_keilmuan_id) if kelompok_keilmuan_id else None
             jenis_kolaborasi = JenisKolaborasi.objects.get(id=jenis_kolaborasi_id) if jenis_kolaborasi_id else None
             tahun = Tahun.objects.get(id=tahun_id) if tahun_id else None
 
             # Buat objek penelitian tanpa anggota dulu
             penelitian = Penelitian.objects.create(
                 judul=judul,
-                ketua_peneliti=ketua_peneliti,
+                ketua=ketua,
                 keterangan=keterangan,
                 jumlah_dana=jumlah_dana,
                 sumber_dana=sumber_dana,
-                kelompok_riset=kelompok_riset,
+                kelompok_keilmuan=kelompok_keilmuan,
                 jenis_kolaborasi=jenis_kolaborasi,
                 tahun=tahun
             )
 
             # Tambahkan anggota (ManyToMany)
-            if anggota_peneliti_ids:
-                anggota_list = Person.objects.filter(id__in=anggota_peneliti_ids)
-                penelitian.anggota_peneliti.set(anggota_list)
+            if anggota_ids:
+                anggota_list = Person.objects.filter(id__in=anggota_ids)
+                penelitian.anggota.set(anggota_list)
             else:
-                penelitian.anggota_peneliti.clear()
+                penelitian.anggota.clear()
 
             return penelitian
 
@@ -62,10 +62,10 @@ def update_penelitian(
         judul: str, 
         keterangan: Optional[str] = None,
         jumlah_dana: Optional[Decimal] = None,
-        ketua_peneliti_id: Optional[int] = None,
-        anggota_peneliti_ids: Optional[List[int]] = None,
+        ketua_id: Optional[int] = None,
+        anggota_ids: Optional[List[int]] = None,
         sumber_dana_id: Optional[int] = None,
-        kelompok_riset_id: Optional[int] = None,
+        kelompok_keilmuan_id: Optional[int] = None,
         jenis_kolaborasi_id: Optional[int] = None,
         tahun_id: Optional[int] = None
         ) -> Optional[Penelitian]:
@@ -80,12 +80,12 @@ def update_penelitian(
             if jumlah_dana is not None:
                 penelitian.jumlah_dana = jumlah_dana
 
-            if ketua_peneliti_id:
-                penelitian.ketua_peneliti = Person.objects.get(id=ketua_peneliti_id)
+            if ketua_id:
+                penelitian.ketua = Person.objects.get(id=ketua_id)
             if sumber_dana_id:
                 penelitian.sumber_dana = SumberDana.objects.get(id=sumber_dana_id)
-            if kelompok_riset_id:
-                penelitian.kelompok_riset = KelompokRiset.objects.get(id=kelompok_riset_id)
+            if kelompok_keilmuan_id:
+                penelitian.kelompok_keilmuan = KelompokKeilmuan.objects.get(id=kelompok_keilmuan_id)
             if jenis_kolaborasi_id:
                 penelitian.jenis_kolaborasi = JenisKolaborasi.objects.get(id=jenis_kolaborasi_id)
             if tahun_id:
@@ -94,9 +94,9 @@ def update_penelitian(
             penelitian.save()
 
             # Update anggota peneliti (ManyToMany)
-            if anggota_peneliti_ids is not None:
-                anggota_list = Person.objects.filter(id__in=anggota_peneliti_ids)
-                penelitian.anggota_peneliti.set(anggota_list)
+            if anggota_ids is not None:
+                anggota_list = Person.objects.filter(id__in=anggota_ids)
+                penelitian.anggota.set(anggota_list)
 
             return penelitian
 

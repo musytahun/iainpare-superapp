@@ -34,8 +34,8 @@ class JabatanFungsionalType:
     name: auto
 
 
-@strawberry.django.type(JenisPublikasi)
-class JenisPublikasiType:
+@strawberry.django.type(Indeksasi)
+class IndeksasiType:
     id: auto
     code: auto
     name: auto
@@ -70,6 +70,13 @@ class KabupatenKotaType:
     provinsi: ProvinsiType
 
 
+@strawberry.django.type(KaryaIlmiah)
+class KaryaIlmiahType:
+    id: auto
+    code: auto
+    name: auto
+
+
 @strawberry.django.type(SumberDana)
 class SumberDanaType:
     id: auto
@@ -91,8 +98,8 @@ class JenisKolaborasiType:
     name: auto
 
 
-@strawberry.django.type(KelompokRiset)
-class KelompokRisetType:
+@strawberry.django.type(KelompokKeilmuan)
+class KelompokKeilmuanType:
     id: auto
     code: auto
     name: auto

@@ -24,9 +24,12 @@ const referencesNavigation = [
   { name: "Jabatan Fungsional", href: "/references/jabatan-fungsional", icon: CubeIcon },
   { name: "Tahun", href: "/references/tahun", icon: CubeIcon },
   { name: "Bidang Kepakaran", href: "/references/bidang-kepakaran", icon: CubeIcon },
-  { name: "Jenis Publikasi", href: "/references/jenis-publikasi", icon: CubeIcon },
+  { name: "Indeksasi", href: "/references/indeksasi", icon: CubeIcon },
   { name: "Penerbit", href: "/references/penerbit", icon: CubeIcon },
   { name: "Sumber Dana", href: "/references/sumber-dana", icon: CubeIcon },
+  { name: "Jenis Kolaborasi", href: "/references/jenis-kolaborasi", icon: CubeIcon },
+  { name: "Kelompok Keilmuan", href: "/references/kelompok-keilmuan", icon: CubeIcon },
+  { name: "Karya Ilmiah", href: "/references/karya-ilmiah", icon: CubeIcon },
 ];
 
 const Sidebar: React.FC = () => {

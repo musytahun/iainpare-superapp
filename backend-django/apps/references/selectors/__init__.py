@@ -1,8 +1,9 @@
 from .bidang_kepakaran_selector import *
 from .fakultas_selector import *
 from .jabatan_fungsional_selector import *
-from .jenis_publikasi_selector import *
+from .indeksasi_selector import *
 from .kabupaten_kota_selector import *
+from .karya_ilmiah_selector import *
 from .pangkat_golongan_selector import *
 from .penerbit_selector import *
 from .program_studi_selector import *
@@ -10,4 +11,4 @@ from .provinsi_selector import *
 from .sumber_dana_selector import *
 from .tahun_selector import *
 from .jenis_kolaborasi_selector import *
-from .kelompok_riset_selector import *
+from .kelompok_keilmuan_selector import *

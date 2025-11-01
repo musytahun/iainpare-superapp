@@ -157,7 +157,7 @@ const DosenTab = () => {
                       className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-white bg-teal-800 rounded-lg hover:bg-primary/90 transition-colors"
                   >
                       <PlusIcon className="h-5 w-5" />
-                      <span>Tambah Dosen</span>
+                      <span>Tambah</span>
                   </button>
                   <button 
                       // onClick={handleExportData}
