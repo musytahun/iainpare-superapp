@@ -2,7 +2,7 @@ import strawberry
 from strawberry import auto, LazyType
 from typing import List, Optional
 
-from apps.lppm.models import Penelitian, Pengabdian, Publikasi
+from apps.lppm.models import *
 from apps.references.types import *
 
 
@@ -53,3 +53,80 @@ class LppmProfileType:
     penelitian: List[PenelitianType]
     pengabdian: List[PengabdianType]
     publikasi: List[PublikasiType]
+
+
+# ----------------------------------------------------------------------------
+
+@strawberry.django.type(StrategicSource)
+class StrategicSourceType:
+    id: auto
+    code: auto
+    name: auto
+
+# @strawberry.django.type(StrategicGoal)
+# class StrategicGoalType:
+#     id: auto
+#     code: auto
+#     name: auto
+#     is_active: auto
+#     year_start: auto
+#     year_end: auto
+
+# @strawberry.django.type(StrategicObjective)
+# class StrategicObjectiveType:
+#     id: auto
+#     code: auto
+#     name: auto
+#     strategic_goal: Optional[StrategicGoalType]
+#     is_active: auto
+
+# @strawberry.django.type(StrategicAction)
+# class StrategicActionType:
+#     id: auto
+#     code: auto
+#     name: auto
+#     strategic_objective: Optional[StrategicObjectiveType]
+#     current: auto
+#     target: auto
+#     all_year: auto
+#     yearly_data: auto
+#     strategic_source: Optional[StrategicSourceType]
+#     filter_keyword: auto
+#     is_active: auto
+
+
+@strawberry.django.type(StrategicAction)
+class StrategicActionType:
+    id: strawberry.auto
+    code: strawberry.auto
+    name: strawberry.auto
+    current: strawberry.auto
+    target: strawberry.auto
+    unit: strawberry.auto
+    all_year: strawberry.auto
+    yearly_data: strawberry.auto
+    filter_keyword: strawberry.auto
+
+
+@strawberry.django.type(StrategicObjective)
+class StrategicObjectiveType:
+    id: strawberry.auto
+    code: strawberry.auto
+    name: strawberry.auto
+    actions: List[StrategicActionType]
+
+
+@strawberry.django.type(StrategicGoal)
+class StrategicGoalType:
+    id: strawberry.auto
+    code: strawberry.auto
+    name: strawberry.auto
+    is_active: strawberry.auto
+    year_start: strawberry.auto
+    year_end: strawberry.auto
+    objectives: List[StrategicObjectiveType]
+
+
+# @strawberry.type
+# class Query:
+#     getStrategisGoal: List[StrategicGoalType] = strawberry.django.field()
