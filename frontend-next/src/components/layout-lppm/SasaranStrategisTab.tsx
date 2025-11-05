@@ -41,14 +41,14 @@ const SasaranStrategisTab = () => {
 
     return (
     <>
-    {getStrategicGoal.map(ss => (
-        <div key={ss.code} className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+    {getStrategicGoal.map(sg => (
+        <div key={sg.code} className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
             <div className="pb-4 border-b border-gray-200">
-                <h3 className="text-lg sm:text-xl font-bold text-primary">{ss.code}</h3>
-                <p className="text-gray-600 font-medium mt-1">{ss.name}</p>
+                <h3 className="text-lg sm:text-xl font-bold text-primary">{sg.code}</h3>
+                <p className="text-gray-600 font-medium mt-1">{sg.name}</p>
             </div>
             <div className="mt-4 space-y-3">
-                {[...(ss.objectives || [])]
+                {[...(sg.objectives || [])]
                     .sort((a, b) => a.code.localeCompare(b.code))
                     .map(objective => (
                     <div key={objective.code} className="border border-gray-200 rounded-lg overflow-hidden">
