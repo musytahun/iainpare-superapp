@@ -48,6 +48,28 @@ class PublikasiType:
     link: auto
     karya_ilmiah: Optional[KaryaIlmiahType]
 
+@strawberry.django.type(Dokumen)
+class DokumenType:
+    id: auto
+    name: auto
+    keterangan: auto
+    kriteria_terkait: auto
+    status: auto
+    tahun: Optional[TahunType]
+    link: auto
+
+@strawberry.django.type(Kegiatan)
+class KegiatanType:
+    id: auto
+    name: auto
+    keterangan: auto
+    tanggal: auto
+    tempat: auto
+    status: auto
+    tahun: Optional[TahunType]
+    link: auto
+    penanggung_jawab: Optional[PositionType]
+
 @strawberry.type
 class LppmProfileType:
     penelitian: List[PenelitianType]

@@ -103,3 +103,14 @@ class KelompokKeilmuanType:
     id: auto
     code: auto
     name: auto
+
+
+@strawberry.django.type(Position)
+class PositionType:
+    id: strawberry.auto
+    name: strawberry.auto
+    level: strawberry.auto
+    description: strawberry.auto
+
+    parent: Optional["PositionType"]  # bisa null
+    subordinates: List["PositionType"]

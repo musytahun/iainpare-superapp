@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { BadgeCheckIcon, BookOpenIcon, CashIcon, GlobeAltIcon, PuzzleIcon, TrendingUpIcon, UsersIcon } from "@/components/icons/Icons";
 import AccreditationStatCard from '@/components/layout-lppm/AccreditationStatCard';
-import SpDoughnutChart from '@/components/layout-lppm/SpDoughnutChart';
+import SgDoughnutChart from '@/components/layout-lppm/SgDoughnutChart';
 import { GET_STRATEGIC_GOAL } from "@/graphql/lppm/strategic_goal.graphql";
 import { useQuery } from "@apollo/client";
 import ObjectiveHorizontalBarChart from "@/components/layout-lppm/ObjectiveHorizontalBarChart";
@@ -68,7 +68,7 @@ const LppmDashboardPage = () => {
                   >
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                       <div className="lg:col-span-1">
-                        <SpDoughnutChart sg={sg} selectedYear={selectedYear} />
+                        <SgDoughnutChart sg={sg} selectedYear={selectedYear} />
                       </div>
                       <div className="lg:col-span-2">
                         <ObjectiveHorizontalBarChart objectives={sg.objectives} selectedYear={selectedYear} />

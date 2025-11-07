@@ -2,6 +2,7 @@ import os
 from invoke import task
 
 DJANGO_SETTINGS = "backend.settings.dev"
+DJANGO_SETTINGS_PROD = "backend.settings.prod"
 
 # Deteksi platform: pty=True hanya untuk POSIX (Linux/macOS)
 PTY_SUPPORTED = os.name != "nt"
@@ -11,6 +12,10 @@ def dev(c):
     # runserver
     # poetry run invoke dev
     c.run(f"poetry run python manage.py runserver --settings={DJANGO_SETTINGS}", pty=PTY_SUPPORTED)
+
+@task
+def prod(c):
+    c.run(f"poetry run python manage.py runserver --settings={DJANGO_SETTINGS_PROD}", pty=PTY_SUPPORTED)
 
 @task
 def startapp(c, app):

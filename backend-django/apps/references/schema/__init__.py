@@ -13,6 +13,7 @@ from .sumber_dana_schema import SumberDanaQuery, SumberDanaMutation
 from .tahun_schema import TahunQuery, TahunMutation
 from .jenis_kolaborasi_schema import JenisKolaborasiQuery, JenisKolaborasiMutation
 from .kelompok_keilmuan_schema import KelompokKeilmuanQuery, KelompokKeilmuanMutation
+from .position_schema import PositionQuery, PositionMutation
 
 
 @strawberry.type
@@ -30,7 +31,8 @@ class Query(
     SumberDanaQuery, 
     TahunQuery,
     JenisKolaborasiQuery,
-    KelompokKeilmuanQuery
+    KelompokKeilmuanQuery,
+    PositionQuery
     ):
     """Gabungan semua query di domain accounts"""
     pass
@@ -51,7 +53,8 @@ class Mutation(
     SumberDanaMutation, 
     TahunMutation,
     JenisKolaborasiMutation,
-    KelompokKeilmuanMutation
+    KelompokKeilmuanMutation,
+    PositionMutation
     ):
 
     """Gabungan semua mutation di domain accounts"""

@@ -12,3 +12,4 @@ from .sumber_dana_service import *
 from .tahun_service import *
 from .jenis_kolaborasi_service import *
 from .kelompok_keilmuan_service import *
+from .position_service import *

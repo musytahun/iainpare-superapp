@@ -12,3 +12,4 @@ from .sumber_dana_selector import *
 from .tahun_selector import *
 from .jenis_kolaborasi_selector import *
 from .kelompok_keilmuan_selector import *
+from .position_selector import *

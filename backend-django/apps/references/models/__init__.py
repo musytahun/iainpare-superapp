@@ -12,3 +12,4 @@ from .indeksasi import *
 from .penerbit import *
 from .jenis_kolaborasi import *
 from .kelompok_keilmuan import *
+from .position import *

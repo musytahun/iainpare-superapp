@@ -30,13 +30,14 @@ http://localhost:3000/gate/login
 Backend:
 - Django
 - Strawberry GraphQL
-- Poetry (dependency management)
+- Poetry (dependency management version 2.2.1)
 - invoke (python task runner)
 
 Frontend:
 - Next.js
 - Apollo Client
-- PNPM (package manager)
+- node (version 22.19.0)
+- pnpm (package manager version 10.17.1)
 - Shadcn UI
 
 Fitur utama:

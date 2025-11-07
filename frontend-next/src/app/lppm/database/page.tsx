@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { UsersIconLppm, BriefcaseIcon, GlobeAltIcon, BookOpenIcon } from "@/components/icons/Icons";
+import { UsersIconLppm, BriefcaseIcon, GlobeAltIcon, BookOpenIcon, DocumentTextIcon, ClipboardListIcon } from "@/components/icons/Icons";
 import DosenTab from "@/components/layout-lppm/DosenTab";
 import PenelitianTab from "@/components/layout-lppm/PenelitianTab";
 import PengabdianTab from "@/components/layout-lppm/PengabdianTab";
 import PublikasiTab from "@/components/layout-lppm/PublikasiTab";
+import DokumenTab from "@/components/layout-lppm/DokumenTab";
+import KegiatanTab from "@/components/layout-lppm/KegiatanTab";
 
 
 type Tab = 'dosen' | 'penelitian' | 'pengabdian' | 'publikasi';
@@ -17,7 +19,9 @@ const LppmDatabasePage = () => {
     { id: 'dosen', name: 'Dosen', icon: <UsersIconLppm className="h-5 w-5 mr-2" /> },
     { id: 'penelitian', name: 'Penelitian', icon: <BriefcaseIcon className="h-5 w-5 mr-2" /> },
     { id: 'pengabdian', name: 'Pengabdian', icon: <GlobeAltIcon className="h-5 w-5 mr-2" /> },
-    { id: 'publikasi', name: 'Publikasi', icon: <BookOpenIcon className="h-5 w-5 mr-2" /> }
+    { id: 'publikasi', name: 'Publikasi', icon: <BookOpenIcon className="h-5 w-5 mr-2" /> },
+    { id: 'dokumen', name: 'Dokumen', icon: <DocumentTextIcon className="h-5 w-5 mr-2" /> },
+    { id: 'kegiatan', name: 'Kegiatan', icon: <ClipboardListIcon className="h-5 w-5 mr-2" /> }
 ];
 
 const renderContent = () => {
@@ -30,6 +34,10 @@ const renderContent = () => {
         return <PengabdianTab />;
       case 'publikasi':
         return <PublikasiTab />;
+      case 'dokumen':
+          return <DokumenTab />;
+      case 'kegiatan':
+          return <KegiatanTab />;
       default:
           return null;
   }
