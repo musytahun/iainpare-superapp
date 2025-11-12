@@ -43,9 +43,21 @@ def makemigrations(c, app=""):
     c.run(cmd, pty=PTY_SUPPORTED)
 
 @task
+def makemigrations_prod(c, app=""):
+    # poetry run invoke makemigrations -> semua app
+    # poetry run invoke makemigrations -- app -> app tertentu
+    cmd = f"poetry run python manage.py makemigrations {app} --settings={DJANGO_SETTINGS_PROD}"
+    c.run(cmd, pty=PTY_SUPPORTED)
+
+@task
 def migrate(c):
     # poetry run invoke migrate
     c.run(f"poetry run python manage.py migrate --settings={DJANGO_SETTINGS}", pty=PTY_SUPPORTED)
+
+@task
+def migrate_prod(c):
+    # poetry run invoke migrate
+    c.run(f"poetry run python manage.py migrate --settings={DJANGO_SETTINGS_PROD}", pty=PTY_SUPPORTED)
 
 @task
 def flush(c):
