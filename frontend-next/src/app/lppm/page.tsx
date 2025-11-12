@@ -8,7 +8,7 @@ import { GET_STRATEGIC_GOAL } from "@/graphql/lppm/strategic_goal.graphql";
 import { useQuery } from "@apollo/client";
 import ObjectiveHorizontalBarChart from "@/components/layout-lppm/ObjectiveHorizontalBarChart";
 
-const YEARS = ['All Years', '2025', '2024', '2023', '2022', '2021', '2020'];
+const YEARS = ['All Years', '2024', '2023', '2022', '2021', '2020'];
 
 const LppmDashboardPage = () => {
   const [selectedYear, setSelectedYear] = useState<string>("All Years");

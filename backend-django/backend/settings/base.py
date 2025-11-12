@@ -6,6 +6,10 @@ import environ
 import os
 from pathlib import Path
 from corsheaders.defaults import default_headers
+import dj_database_url
+from dotenv import load_dotenv
+
+load_dotenv()  # membaca file .env
 
 # Root project
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -87,14 +91,15 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 # Database
 DATABASES = {
-    "default": {
-        "ENGINE": env("DB_ENGINE", default="django.db.backends.sqlite3"),
-        "NAME": env("DB_NAME", default="db.sqlite3"),
-        "USER": env("DB_USER", default=""),
-        "PASSWORD": env("DB_PASSWORD", default=""),
-        "HOST": env("DB_HOST", default=""),
-        "PORT": env("DB_PORT", default=""),
-    }
+    # "default": {
+    #     "ENGINE": env("DB_ENGINE", default="django.db.backends.sqlite3"),
+    #     "NAME": env("DB_NAME", default="db.sqlite3"),
+    #     "USER": env("DB_USER", default=""),
+    #     "PASSWORD": env("DB_PASSWORD", default=""),
+    #     "HOST": env("DB_HOST", default=""),
+    #     "PORT": env("DB_PORT", default=""),
+    # }
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
 AUTH_USER_MODEL = "accounts.User"

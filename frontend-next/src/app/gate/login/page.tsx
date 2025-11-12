@@ -46,7 +46,8 @@ export default function LoginPage() {
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
                 alt="Your Company"
-                src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/669dbabb-d4c5-4170-bbe6-1fffd7b4bb09/d18t2l6-227050ae-b1d2-4a80-89cc-9513aa6de2c5.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi82NjlkYmFiYi1kNGM1LTQxNzAtYmJlNi0xZmZmZDdiNGJiMDkvZDE4dDJsNi0yMjcwNTBhZS1iMWQyLTRhODAtODljYy05NTEzYWE2ZGUyYzUucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.3v2bCKuAQi66GlkfBQGMtYLKvbwenJn3o1bwKQ5F0nM"
+                // src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/669dbabb-d4c5-4170-bbe6-1fffd7b4bb09/d18t2l6-227050ae-b1d2-4a80-89cc-9513aa6de2c5.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi82NjlkYmFiYi1kNGM1LTQxNzAtYmJlNi0xZmZmZDdiNGJiMDkvZDE4dDJsNi0yMjcwNTBhZS1iMWQyLTRhODAtODljYy05NTEzYWE2ZGUyYzUucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.3v2bCKuAQi66GlkfBQGMtYLKvbwenJn3o1bwKQ5F0nM"
+                src="https://upload.wikimedia.org/wikipedia/id/0/09/Logo_IAIN_Parepare.png?20240916141909"
                 className="mx-auto h-25 w-auto"
             />
             <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-dark">Sign in to your account</h2>

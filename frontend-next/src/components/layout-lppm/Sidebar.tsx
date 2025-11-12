@@ -21,7 +21,7 @@ const Sidebar: React.FC = () => {
       <div className="flex items-center justify-center h-20 border-b border-white/20">
         <div className="flex items-center space-x-3">
           <BookOpenIcon className="h-8 w-8 text-yellow-500" />
-          <h1 className="text-xl font-bold tracking-wider text-white">LPPM Jago</h1>
+          <h1 className="text-xl font-bold tracking-wider text-white">LPPM Board</h1>
         </div>
       </div>
 
