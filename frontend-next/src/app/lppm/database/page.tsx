@@ -10,7 +10,7 @@ import DokumenTab from "@/components/layout-lppm/DokumenTab";
 import KegiatanTab from "@/components/layout-lppm/KegiatanTab";
 
 
-type Tab = 'dosen' | 'penelitian' | 'pengabdian' | 'publikasi';
+type Tab = 'dosen' | 'penelitian' | 'pengabdian' | 'publikasi' | 'dokumen' | 'kegiatan';
 
 const LppmDatabasePage = () => {
   const [activeTab, setActiveTab] = useState<Tab>('dosen');
