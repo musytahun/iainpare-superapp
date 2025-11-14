@@ -9,11 +9,23 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+
   eslint: {
-    ignoreDuringBuilds: true, // 🔥 lewati error lint di build Vercel
+    ignoreDuringBuilds: true, // lewati error lint di build Vercel
   },
+
   typescript: {
-    ignoreBuildErrors: true, // 🔥 lewati error TypeScript di build Vercel
+    ignoreBuildErrors: true, // lewati error TypeScript di build Vercel
+  },
+
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production", // HAPUS console.log DI PRODUCTION
+  },
+
+  turbo: {
+    loaders: {
+      removeConsole: process.env.NODE_ENV === "production", // HAPUS console.log DI PRODUCTION
+    },
   },
 };
 
